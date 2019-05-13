@@ -68,6 +68,7 @@ qrc_*.cpp
 ui_*.h
 *.qmlc
 *.jsc
+
 # Makefile*
 *build-*
 
@@ -86,36 +87,6 @@ CMakeLists.txt.user*
 
 # GNU Makefile
 depend
-argcargv-isInt/argcargvIsInt
-arraySize/arraySize
-atexit/atexit
-atoiatof/atoiatof
-average2D/average2D
-averageDdata/averageDdata
-bool/bool
-callback/callback
-checkStrings/checkStrings
-complex/complex
-complex-tgmath/complextgmath
-deepcopy/deepcopy
-echo-argcargv-forloop/echo-argc-argv
-function-pointers/function-pointers
-hexdump/hexdump
-macros/macros
-mixedtypes/mixedtypes
-pointerArray/pointerArray
-voidPointers/voidPointers
-pointerVariables/pointerVariables
-qsort/qsort
-qsort-ints/qsort-ints
-queueCSLL/queueCSLL
-singlyLinkedList/singlyLinkedList
-swap/swap
-testMaxAllocation/testMaxAllocation
-unitTesting/introUnitTesting/functions/introUTfunctions
-unitTesting/introUnitTesting/functionsTests/introUTfunctionsTests
-checkStringsTest/checkStringsTest
-queueCSLLtest/queueCSLLtest
-multidimArrays/multidimArrays
-bitsbytes/bitsbytes
-static/static
+
+# Doxygen
+ColaVendingMachine/CVM-4-docs/html/*
