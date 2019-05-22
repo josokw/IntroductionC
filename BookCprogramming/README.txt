@@ -29,6 +29,3 @@
              C31-p300 added void for return type,
                       changed formal parameter identifier names,
                       changed implementation of function.
-
-- Qt:        Code style settings in XML-format for Qt.
-
