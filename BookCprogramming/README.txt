@@ -9,7 +9,7 @@
              Some lay-out updates.
              Maximum code line size: 80 chars.
 
-             C7-p63   added include guards to header file.
+             C07-p63  added include guards to header file.
              C20-p185 added #define PI, replaced inverse trigonometric functions
                       by correct examples.
              C20-p188 added #include <stdlib.h>,
