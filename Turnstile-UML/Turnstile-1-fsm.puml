@@ -1,0 +1,9 @@
+@startuml
+
+title FSM Turnstile - 1 -
+
+[*] --> Locked
+Locked -right--> Unlocked : E_COIN / unlock();
+Unlocked -left--> Locked : E_PASS / lock();   
+
+@enduml

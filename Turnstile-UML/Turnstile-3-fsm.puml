@@ -1,0 +1,15 @@
+@startuml
+
+title FSM Turnstile - 3 -
+
+[*] --> Locked : / lock();
+Locked -right--> Unlocked : E_COIN / unlock();
+Locked --> Violation: E_PASS / alarm();
+Violation --> Locked :    E_READY / resetAlarm(); lock();
+Violation --> Violation : E_RESET / resetAlarm();
+Violation --> Violation : E_PASS\n
+Violation --> Violation : E_COIN\n
+Unlocked -left--> Locked : E_PASS / lock();
+Unlocked --> Unlocked : E_COIN / thankyou();
+
+@enduml
