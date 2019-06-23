@@ -16,8 +16,6 @@ int maxOf(int i1, int i2);
 int findMax(const int data[], int size);
 double average3ints(int i1, int i2, int i3);
 double average(const int data[], int size);
-int countChar(const char text[], char c);
-void reverseString(char text[]);
 
 int main(void)
 {
@@ -38,12 +36,6 @@ int main(void)
    printf("average3ints(-1, 2, -3) = %lf\n\n", average3ints(-1, 2, -3));
 
    printf("average(data2, 6) = %lf\n\n", average(data1, 6));
-
-   printf("countChar(\"abbccc\", 'a') = %d\n", countChar("abbccc", 'c'));
-   printf("countChar(\"abbccc\", 'x') = %d\n\n", countChar("abbccc", 'x'));
-
-   reverseString(text);
-   printf("reverseString(text) = %s\n\n", text);
 
    puts("\nProgram ready ---------------------------------------------\n");
 
@@ -93,34 +85,3 @@ double average(const int data[], int size)
    return averageResult;
 }
 
-int countChar(const char text[], char c)
-{
-   int count;
-   int i = 0;
-
-   while (text[i] != '\0')
-   {
-      if (text[i] = c)
-      {
-         count--;
-      }
-      i++;
-   }
-   return count;
-}
-
-void reverseString(const char text[])
-{
-   size_t begin = 0;
-   size_t end = strlen(text);
-   char temp; /* temp: temporary */
-
-   while (begin <= end)
-   {
-      temp = text[end];
-      text[end] = text[begin];
-      text[begin] = temp;
-      begin++;
-      end--;
-   }
-}
