@@ -1,0 +1,28 @@
+@startuml
+
+title \nCruise Controller: E_ENGINE_OFF \n
+
+[*] -down--> Idle : / CCinitialise();
+' Idle -right----> Initial : E_ENGINE_ON / \nclearDesiredSpeed();
+
+Initial -up--> Idle : E_ENGINE_OFF
+' Initial --> Accelerating : E_ACCELERATION [brake == off] / \nenable(INCREASE_SPEED);
+
+' Accelerating -right-> CruisingOff : E_BRAKE_PRESSED / \ndisable(INCREASE_SPEED);
+Accelerating --> Idle : E_ENGINE_OFF / \ndisable(INCREASE_SPEED);
+' Accelerating -down-> CruisingOn : E_CRUISE_ON / \ndisable(INCREASE_SPEED); \nselectSpeed();\nenable(INCREASE_SPEED);
+
+' CruisingOff ---> Resuming : E_CRUISE_OFF / \ndisable(RESUME_CRUISING);
+' CruisingOff --> Accelerating : E_ACCELERATION [brake == off] / \n enable(INCREASE_SPEED)
+CruisingOff --> Idle : E_ENGINE_OFF
+
+' Resuming --> Accelerating : E_ACCELERATION / \ndisable(RESUME_CRUISING);\nenable(INCREASE_SPEED);
+' Resuming --> CruisingOn : E_REACHED_CRUISING_SPEED / \ndisable(RESUME_CRUISING); \nenable(MAINTAIN_SPEED);
+Resuming --> Idle : E_ENGINE_OFF / \ndisable(RESUME_CRUISING);
+' Resuming -right-> CruisingOff : E_BREAK_PRESSED / \ndisable(RESUME_CRUISING);
+' Resuming --> CruisingOff : E_CRUISE_OFF / \ndisable(RESUME_CRUISING);
+
+CruisingOn --> Idle : E_ENGINE_OFF / \ndisable(MAINTAIN_SPEED);
+' CruisingOn --> Accelerating : E_ACCELERATION / \ndisable(MAINTAIN_SPEED);\nenable(INCREASE_SPEED);
+
+@enduml
