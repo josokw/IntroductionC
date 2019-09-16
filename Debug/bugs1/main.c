@@ -11,18 +11,21 @@
 #include <string.h>
 
 /*!
- * Returns the largets of i1 and i2. If both are equivalent i1 is returned.
+ * Returns the largest of i1 and i2. If both are equivalent i1 is returned.
  */
 int maxOf(int i1, int i2);
+
 /*!
- * Returns the largetst value in data array.
+ * Returns the largest value in data array.
  * \pre size >= 1
  */
 int findMax(const int data[], int size);
+
 /*!
  * Returns the average value of i1, i2 and i3.
  */
 double average3ints(int i1, int i2, int i3);
+
 /*!
  * Returns the average value of all values in data array.
  * \pre size >= 1
