@@ -12,22 +12,35 @@
 
 #define MAXCHARS 10
 
+/*!
+ * Counts the number of c characters in the input string text.
+ */
 int countChar(const char text[], char c);
+
+/*!
+ * Reverses the contents of the input string text.
+ * Example: "123" becomes "321"
+ */
 void reverseString(char text[]);
 
 int main(void)
 {
    char text[MAXCHARS] = "abcdef";
 
-   puts("Program started with testing --------------------------------\n");
+   puts(
+      "Program bugs2 started with testing "
+      "-------------------------------\n");
 
    printf("countChar(\"abbccc\", 'a') = %d\n", countChar("abbccc", 'c'));
    printf("countChar(\"abbccc\", 'x') = %d\n\n", countChar("abbccc", 'x'));
 
+   printf("String text = %s\n", text);
    reverseString(text);
    printf("reverseString(text) = %s\n\n", text);
 
-   puts("\nProgram ready ---------------------------------------------\n");
+   puts(
+      "\nProgram ready "
+      "--------------------------------------------------\n");
 
    return 0;
 }
