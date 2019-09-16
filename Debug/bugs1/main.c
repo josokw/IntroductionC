@@ -10,34 +10,58 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAXCHARS 10
-
+/*!
+ * Returns the largets of i1 and i2. If both are equivalent i1 is returned.
+ */
 int maxOf(int i1, int i2);
+/*!
+ * Returns the largetst value in data array.
+ * \pre size >= 1
+ */
 int findMax(const int data[], int size);
+/*!
+ * Returns the average value of i1, i2 and i3.
+ */
 double average3ints(int i1, int i2, int i3);
+/*!
+ * Returns the average value of all values in data array.
+ * \pre size >= 1
+ */
 double average(const int data[], int size);
 
 int main(void)
 {
-   int data1[10] = {1, 2, 150, -10, 0, 20, -50};
+   int data1[7] = {1, 2, 150, -10, 0, 20, -50};
    int data2[6] = {0, 1, 0, 0, 1, 1};
-   char text[MAXCHARS] = "abcdef";
+   int i = 0;
 
-   puts("Program started with testing --------------------------------\n");
+   puts("Program debug1 started with testing ------------------------------\n");
 
    printf("maxOf(0, 3) = %d\n", maxOf(0, 3));
    printf("maxOf(-2, 2) = %d\n", maxOf(-2, 2));
    printf("maxOf(-10, -5) = %d\n\n", maxOf(-10, -5));
 
-   printf("findMax(data1, 10) = %d\n", findMax(data1, 10));
-   printf("findMax(data2, 10) = %d\n\n", findMax(data2, 10));
+   printf("data1 = ");
+   for (i = 0; i < 7; i++)
+   {
+      printf("%d ", data1[i]);
+   }
+   printf("\nfindMax(data1, 7) = %d\n\n", findMax(data1, 7));
+
+   printf("data2 = ");
+   for (i = 0; i < 6; i++)
+   {
+      printf("%d ", data2[i]);
+   }
+   printf("\nfindMax(data2, 6) = %d\n\n", findMax(data2, 6));
 
    printf("average3ints(1, 2, 3) = %lf\n", average3ints(1, 2, 3));
    printf("average3ints(-1, 2, -3) = %lf\n\n", average3ints(-1, 2, -3));
 
-   printf("average(data2, 6) = %lf\n\n", average(data1, 6));
-
-   puts("\nProgram ready ---------------------------------------------\n");
+   printf("average(data1, 7) = %lf\n", average(data1, 6));
+   printf("average(data2, 6) = %lf\n", average(data2, 6));
+   
+   puts("\nProgram ready --------------------------------------------------\n");
 
    return 0;
 }
@@ -81,7 +105,6 @@ double average(const int data[], int size)
    {
       averageResult = data[i];
    }
-   averageResult /= size;
-   return averageResult;
-}
 
+   return averageResult += size;
+}
