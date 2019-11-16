@@ -55,8 +55,8 @@ dkms.conf
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
-/.qmake.cache
-/.qmake.stash
+.qmake.cache
+.qmake.stash
 *.pro.user
 *.pro.user.*
 *.qbs.user
@@ -71,6 +71,7 @@ ui_*.h
 
 # Makefile*
 *build-*
+Makefile
 
 # Qt unit tests
 target_wrapper.*
