@@ -5,12 +5,15 @@ CONFIG -= qt
 CONFIG += c11
 
 SOURCES += main.c \
+    coinAcceptor.c \
     display.c \
     keyboard.c \
     subsystems.c
 
 HEADERS += \
+    coinAcceptor.h \
     display.h \
+    events.h \
     fsm.h \
     keyboard.h \
     subsystems.h

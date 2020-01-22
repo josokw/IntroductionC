@@ -1,7 +1,9 @@
 // Cola Vending Machine - 3 (CVM-3) --------------------------------------------
-
+#include "event.h"
 #include "fsm.h"
+#include "display.h"
 #include "subsystems.h"
+
 #include <ctype.h>
 #include <stdio.h>
 
@@ -203,10 +205,7 @@ event_e CVMcheckCents(int coinValue)
    {
       return E_ENOUGH;
    }
-   else
-   {
-      return E_NOT_ENOUGH;
-   }
+   return E_NOT_ENOUGH;
 }
 
 event_e CVMcheckChange(void)

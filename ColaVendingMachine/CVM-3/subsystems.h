@@ -1,6 +1,7 @@
 #ifndef SUBSYSTEMS_H
 #define SUBSYSTEMS_H
 
+#include "events.h"
 #include "fsm.h"
 
 //---------------------------------------------------------------- CoiN Acceptor
