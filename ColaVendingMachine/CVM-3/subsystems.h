@@ -3,12 +3,6 @@
 
 #include "fsm.h"
 
-//--------------------------------------------------------------------- KeYBoard
-
-void KYBinitialise(void);
-char KYBgetchar(void);
-int KYBgetint(int ifWrongValue);
-
 //---------------------------------------------------------------- CoiN Acceptor
 
 void CNAinitialise(void);
