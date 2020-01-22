@@ -4,12 +4,6 @@
 #include "events.h"
 #include "fsm.h"
 
-//---------------------------------------------------------------- CoiN Acceptor
-
-void CNAinitialise(void);
-char CNAinputCoin(void);
-event_e CNAcheckCoins(void);
-
 //--------------------------------------------------------------- CoLa Dispenser
 
 void CLDinitialise(void);
