@@ -6,12 +6,14 @@ CONFIG += c11
 
 SOURCES += main.c \
     coinAcceptor.c \
+    colaDispenser.c \
     display.c \
     keyboard.c \
     subsystems.c
 
 HEADERS += \
     coinAcceptor.h \
+    colaDispenser.h \
     display.h \
     events.h \
     fsm.h \

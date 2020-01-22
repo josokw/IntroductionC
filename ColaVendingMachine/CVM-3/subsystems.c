@@ -5,18 +5,6 @@
 
 #include <stdio.h>
 
-//--------------------------------------------------------------- CoLa Dispenser
-
-void CLDinitialise(void)
-{
-   DSPdebugSystemInfo("Cola Dispenser: initialised");
-}
-
-void CLDdispenseCola(void)
-{
-   DSPshow("Cola dispensed, please take your cola");
-}
-
 //------------------------------------------------------------- CHange Dispenser
 
 void CHDinitialise(void)

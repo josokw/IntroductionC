@@ -1,6 +1,10 @@
 // Cola Vending Machine - 3 (CVM-3) --------------------------------------------
+
 #include "events.h"
 #include "fsm.h"
+
+#include "coinAcceptor.h"
+#include "colaDispenser.h"
 #include "display.h"
 #include "keyboard.h"
 #include "subsystems.h"
