@@ -5,11 +5,10 @@ CONFIG -= qt
 CONFIG += c11
 
 SOURCES += main.c \
+    display.c \
     subsystems.c
 
 HEADERS += \
+    display.h \
     fsm.h \
     subsystems.h
-
-DISTFILES += \
-    rr

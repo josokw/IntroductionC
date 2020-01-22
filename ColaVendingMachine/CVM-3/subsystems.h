@@ -9,14 +9,6 @@ void KYBinitialise(void);
 char KYBgetchar(void);
 int KYBgetint(int ifWrongValue);
 
-//---------------------------------------------------------------------- DiSPlay
-
-void DSPinitialise(void);
-void DSPshow(const char *text);
-void DSPdebugSystemInfo(const char *text);
-void DSPsimulationSystemInfo(const char *text);
-void DSPshowSystemError(const char *text);
-
 //---------------------------------------------------------------- CoiN Acceptor
 
 void CNAinitialise(void);
