@@ -1,7 +1,5 @@
 #include "display.h"
-#include "fsm.h"
-#include "keyboard.h"
-#include "subsystems.h"
+#include "changeDispenser.h"
 
 #include <stdio.h>
 
@@ -15,7 +13,8 @@ void CHDinitialise(void)
 void CHDdispenseChange(int change)
 {
    char info[DISPLAY_SIZE];
-   sprintf(info, "Change dispensed, please take the change %d cents",
+   sprintf(info, "%s%d",
+           "Change Dispenser: dispensed change = ",
            change);
-   DSPshow(info);
+   DSPdebugSystemInfo(info);
 }

@@ -3,11 +3,11 @@
 #include "events.h"
 #include "fsm.h"
 
+#include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
 #include "keyboard.h"
-#include "subsystems.h"
 
 #include <ctype.h>
 #include <stdio.h>

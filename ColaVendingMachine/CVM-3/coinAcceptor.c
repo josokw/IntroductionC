@@ -1,6 +1,7 @@
 #include "coinAcceptor.h"
 #include "display.h"
 #include "keyboard.h"
+
 #include <stdio.h>
 
 //---------------------------------------------------------------- CoiN Acceptor
