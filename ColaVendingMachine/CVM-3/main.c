@@ -1,7 +1,8 @@
 // Cola Vending Machine - 3 (CVM-3) --------------------------------------------
-#include "event.h"
+#include "events.h"
 #include "fsm.h"
 #include "display.h"
+#include "keyboard.h"
 #include "subsystems.h"
 
 #include <ctype.h>
