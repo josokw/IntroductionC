@@ -2,6 +2,6 @@
 #define APPINFO_H
 
 #define APP "Cola Vending Machine"
-#define VERSION "5.0"
+#define VERSION "5.1"
 
 #endif

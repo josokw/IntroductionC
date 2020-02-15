@@ -26,7 +26,7 @@ int availableChange = 0;
 /// current state, #currentState, only events that can be handled.
 /// Implementing buffering using a queue and multi-threading is outside
 /// the scope of this introduction to C programming.
-/// @return Generated event for the #eventHandler function.
+/// \return Generated event for the #eventHandler function.
 event_e generateEvent(void)
 {
    event_e evnt = E_NO;
@@ -46,9 +46,11 @@ event_e generateEvent(void)
          break;
       case S_DETECTED_10C:
          evnt = CVMcheckCents(10);
+         DSPshow("     10C", 5);
          break;
       case S_DETECTED_20C:
          evnt = CVMcheckCents(20);
+         DSPshow("     20C", 5);
          break;
       case S_DISPENSE:
          evnt = CVMcheckChange();
@@ -99,8 +101,7 @@ void eventHandler(event_e event)
          nextState = S_DETECTED_20C;
          break;
       default:
-         DSPshowSystemError("S_WAIT_FOR_COINS received event "
-                            "not handled");
+         DSPshowSystemError("S_WAIT_FOR_COINS received unknown event");
          nextState = S_WAIT_FOR_COINS;
       }
       break;
@@ -115,8 +116,7 @@ void eventHandler(event_e event)
          nextState = S_DISPENSE;
          break;
       default:
-         DSPshowSystemError("S_DETECTED_10C received event "
-                            "not handled");
+         DSPshowSystemError("S_DETECTED_10C received unknown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }
@@ -132,8 +132,7 @@ void eventHandler(event_e event)
          nextState = S_DISPENSE;
          break;
       default:
-         DSPshowSystemError("S_DETECTED_20C received event "
-                            "not handled");
+         DSPshowSystemError("S_DETECTED_20C received unkown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }
@@ -156,7 +155,7 @@ void eventHandler(event_e event)
          nextState = S_WAIT_FOR_COINS;
          break;
       default:
-         DSPshowSystemError("S_DISPENSE received an unknown event");
+         DSPshowSystemError("S_DISPENSE received unknown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }

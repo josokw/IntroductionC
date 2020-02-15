@@ -4,6 +4,8 @@
 //--------------------------------------------------------------------- KeYBoard
 
 void KYBinitialise(void);
+/// Empty input buffer
+void KYBclear(void);
 char KYBgetchar(void);
 int KYBgetint(int ifWrongValue);
 

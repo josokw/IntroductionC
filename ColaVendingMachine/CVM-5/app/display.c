@@ -61,7 +61,7 @@ void DSPshowDisplay(void)
 
 void DSPshow(const char *text, int row)
 {
-   DSPdebugSystemInfo("** Press any key **");
+   DSPdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    DSPclearLine(row);
    stpncpy(&display[row][2], text, DSP_WIDTH - 2);

@@ -12,7 +12,7 @@ void CHDinitialise(void)
 
 void CHDdispenseChange(int change)
 {
-   char info[DISPLAY_SIZE];
+   char info[100];
    sprintf(info, "%s%d",
            "Change Dispenser: dispensed change = ",
            change);

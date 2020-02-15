@@ -13,7 +13,7 @@ void CNAinitialise(void)
 
 /// Checks in a loop if the input of a coin code is correct.
 /// If the entered value is not correct this function will ask again for input.
-/// @return Entered coin code.
+/// \return Entered coin code.
 char CNAinputCoin(void)
 {
    int coinIsOK = 0;
@@ -26,9 +26,11 @@ char CNAinputCoin(void)
          case '1':
          case '2':
             coinIsOK = 1;
+            DSPclearLine(5);
             break;
          default:
             DSPdebugSystemInfo("Coin Acceptor: unknown coin");
+            DSPshow("     unknown coin", 5);
             DSPsimulationSystemInfo("Enter a coin: <1> 10c  <2> 20c");
             break;
       }
@@ -37,7 +39,7 @@ char CNAinputCoin(void)
 }
 
 /// Simulates the entering of coins.
-/// @return Generated CNA subsystem event.
+/// \return Generated CNA subsystem event.
 event_e CNAcheckCoins(void)
 {
    char coin = '0';
