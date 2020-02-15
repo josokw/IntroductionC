@@ -1,12 +1,37 @@
 #include "display.h"
+#include "appInfo.h"
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 //---------------------------------------------------------------------- DiSPlay
 
+#define DSP_HEIGHT 10
+#define DSP_WIDTH 70
+
+static char display[DSP_HEIGHT][DSP_WIDTH + 1] = {{0}};
+static char line[DSP_WIDTH + 1] = {0}; 
+static char topDisplay[DSP_WIDTH] = {0};
+
+static int ln = 0;
+
 void DSPinitialise(void)
 {
+   ln = 0;
+   for (int i = 0; i < DSP_WIDTH; i++)
+   {
+      topDisplay[i] = '=';
+   }
+   strncpy(display[0], topDisplay, DSP_WIDTH);
+   strncpy(display[DSP_HEIGHT -1], topDisplay, DSP_WIDTH);
+   for (int i = 1; i < DSP_HEIGHT - 1; i++)
+   {
+      display[i][0] = '|';
+   }
+   strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
+   DSPshowDisplay();
+   ln++;
    DSPdebugSystemInfo("Display: initialised");
 }
 
@@ -20,22 +45,40 @@ void DSPclear(void)
 #endif
 }
 
-void DSPshow(const char *text)
+void DSPclearLine(int ln)
 {
-   printf("\n## %-" DISPLAY_SIZE_STR "s ##\n", text);
+   strcpy(display[ln], "| ");
+}
+
+void DSPshowDisplay(void)
+{
+   DSPclear();
+   for (int row = 0; row < DSP_HEIGHT; row++)
+   {
+      printf("%s\n", display[row]);
+   }
+}
+
+void DSPshow(const char *text, int row)
+{
+   DSPdebugSystemInfo("** Press any key **");
+   getchar();
+   DSPclearLine(row);
+   stpncpy(&display[row][2], text, DSP_WIDTH - 2);
+   DSPshowDisplay();
 }
 
 void DSPdebugSystemInfo(const char *text)
 {
-   printf("\n-- DEBUG %-" DISPLAY_SIZE_STR "s\n", text);
+   printf("\n-- DEBUG  %s   ", text);
 }
 
 void DSPsimulationSystemInfo(const char *text)
 {
-   printf("\n-- SIMULATION %-" DISPLAY_SIZE_STR "s", text);
+   printf("\n-- SIMULATION  %s   ", text);
 }
 
 void DSPshowSystemError(const char *text)
 {
-   printf("\n## SYSTEM ERROR %-" DISPLAY_SIZE_STR "s ##\n", text);
+   printf("\n** SYSTEM ERROR  %s   ", text);
 }

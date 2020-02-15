@@ -13,6 +13,7 @@ SOURCES += main.c \
     keyboard.c
 
 HEADERS += \
+    appInfo.h \
     fsm.h \
     display.h \
     coinAcceptor.h \
@@ -20,4 +21,3 @@ HEADERS += \
     events.h \
     colaDispenser.h \
     keyboard.h
-

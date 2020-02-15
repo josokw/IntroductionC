@@ -29,7 +29,7 @@ char CNAinputCoin(void)
             break;
          default:
             DSPdebugSystemInfo("Coin Acceptor: unknown coin");
-            DSPsimulationSystemInfo("Coins: <1> 10c  <2> 20c");
+            DSPsimulationSystemInfo("Enter a coin: <1> 10c  <2> 20c");
             break;
       }
    }
@@ -43,7 +43,7 @@ event_e CNAcheckCoins(void)
    char coin = '0';
    event_e event = E_NO;
 
-   DSPsimulationSystemInfo("Coins: <1> 10c  <2> 20c");
+   DSPsimulationSystemInfo("Enter a coin: <1> 10c  <2> 20c");
    coin = CNAinputCoin();
    switch(coin)
    {
