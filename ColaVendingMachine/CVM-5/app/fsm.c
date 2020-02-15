@@ -203,10 +203,7 @@ event_e CVMcheckCents(int coinValue)
    {
       return E_ENOUGH;
    }
-   else
-   {
-      return E_NOT_ENOUGH;
-   }
+   return E_NOT_ENOUGH;
 }
 
 event_e CVMcheckChange(void)

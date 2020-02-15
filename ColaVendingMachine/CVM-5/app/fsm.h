@@ -4,7 +4,7 @@
 #include "events.h"
 
 event_e generateEvent(void);
-void eventHandler(event_e evnt);
+void eventHandler(event_e event);
 
 event_e CVMinitialise(void);
 event_e CVMcheckCents(int coinValue);
