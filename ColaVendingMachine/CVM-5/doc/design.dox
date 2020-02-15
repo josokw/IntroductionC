@@ -1,0 +1,20 @@
+/*!
+
+\page sec_design Design
+
+\section secArch Architecture subsystems view
+
+A CVM device has several subsystems:
+- display
+- keyboard
+- change dispenser
+- coin acceptor
+- cola dispenser
+
+\todo Add UML deployment diagram.
+
+\section secState State machine view
+
+\todo Add UML state chart.
+
+*/
