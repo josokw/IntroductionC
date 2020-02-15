@@ -11,7 +11,7 @@
 #define DSP_WIDTH 70
 
 static char display[DSP_HEIGHT][DSP_WIDTH + 1] = {{0}};
-static char line[DSP_WIDTH + 1] = {0}; 
+static char line[DSP_WIDTH + 1] = {0};
 static char topDisplay[DSP_WIDTH] = {0};
 
 void DSPinitialise(void)
@@ -60,7 +60,7 @@ void DSPshow(const char *text, int row)
    DSPdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    DSPclearLine(row);
-   stpncpy(&display[row][2], text, DSP_WIDTH - 2);
+   strncpy(&display[row][2], text, DSP_WIDTH - 2);
    DSPshowDisplay();
 }
 
