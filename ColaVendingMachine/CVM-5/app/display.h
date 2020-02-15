@@ -7,6 +7,7 @@
 #define DISPLAY_SIZE 70
 
 void DSPinitialise(void);
+void DSPclear(void);
 void DSPshow(const char *text);
 void DSPdebugSystemInfo(const char *text);
 void DSPsimulationSystemInfo(const char *text);

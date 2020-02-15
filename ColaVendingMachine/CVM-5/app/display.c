@@ -1,4 +1,6 @@
 #include "display.h"
+
+#include <stdlib.h>
 #include <stdio.h>
 
 //---------------------------------------------------------------------- DiSPlay
@@ -6,6 +8,16 @@
 void DSPinitialise(void)
 {
    DSPdebugSystemInfo("Display: initialised");
+}
+
+void DSPclear(void)
+{
+#ifdef _WIN32
+   system("cls");
+#endif
+#ifdef __linux__
+   system("clear");
+#endif
 }
 
 void DSPshow(const char *text)
