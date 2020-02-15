@@ -14,11 +14,8 @@ static char display[DSP_HEIGHT][DSP_WIDTH + 1] = {{0}};
 static char line[DSP_WIDTH + 1] = {0}; 
 static char topDisplay[DSP_WIDTH] = {0};
 
-static int ln = 0;
-
 void DSPinitialise(void)
 {
-   ln = 0;
    for (int i = 0; i < DSP_WIDTH; i++)
    {
       topDisplay[i] = '=';
@@ -31,7 +28,6 @@ void DSPinitialise(void)
    }
    strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
    DSPshowDisplay();
-   ln++;
    DSPdebugSystemInfo("Display: initialised");
 }
 

@@ -41,6 +41,7 @@ event_e generateEvent(void)
          evnt = E_CONTINUE;
          break;
       case S_WAIT_FOR_COINS:
+         DSPclearLine(5);
          DSPshow("Enter your coins please", 3);
          evnt = CNAcheckCoins();
          break;
@@ -101,7 +102,7 @@ void eventHandler(event_e event)
          nextState = S_DETECTED_20C;
          break;
       default:
-         DSPshowSystemError("S_WAIT_FOR_COINS received unknown event");
+         DSPshowSystemError("State S_WAIT_FOR_COINS received unknown event");
          nextState = S_WAIT_FOR_COINS;
       }
       break;
@@ -116,7 +117,7 @@ void eventHandler(event_e event)
          nextState = S_DISPENSE;
          break;
       default:
-         DSPshowSystemError("S_DETECTED_10C received unknown event");
+         DSPshowSystemError("State S_DETECTED_10C received unknown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }
@@ -132,7 +133,7 @@ void eventHandler(event_e event)
          nextState = S_DISPENSE;
          break;
       default:
-         DSPshowSystemError("S_DETECTED_20C received unkown event");
+         DSPshowSystemError("State S_DETECTED_20C received unkown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }
@@ -155,7 +156,7 @@ void eventHandler(event_e event)
          nextState = S_WAIT_FOR_COINS;
          break;
       default:
-         DSPshowSystemError("S_DISPENSE received unknown event");
+         DSPshowSystemError("State S_DISPENSE received unknown event");
          nextState = S_WAIT_FOR_COINS;
          break;
       }
