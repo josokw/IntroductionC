@@ -146,15 +146,13 @@ void eventHandler(event_e event)
          switch (event)
          {
             case E_NO_CHANGE_DISPENSE:
-               DSPshow("Sorry, no change available", 3);
-               DSPclearLine(5);
+               DSPshowDelete("Sorry, no change available", 3);
                CHDdispenseChange(insertedMoney);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_UPDATE_CHANGE;
                break;
             case E_CHANGE_DISPENSE:
-               DSPshow("Please take your cola", 3);
-               DSPclearLine(5);
+               DSPshowDelete("Please take your cola", 3);
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;

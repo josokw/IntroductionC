@@ -64,6 +64,18 @@ void DSPshow(const char *text, int row)
    DSPshowDisplay();
 }
 
+void DSPshowDelete(const char *text, int row)
+{
+   DSPdebugSystemInfo("** Press <Enter>, for update display **");
+   getchar();
+   for (int r = row; r < DSP_HEIGHT - 1; r++)
+   {
+      DSPclearLine(r);
+   }
+   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+   DSPshowDisplay();
+}
+
 void DSPdebugSystemInfo(const char *text)
 {
    printf("\n-- DEBUG  %s   ", text);
