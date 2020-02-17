@@ -1,5 +1,6 @@
 #include "keyboard.h"
 #include "display.h"
+
 #include <stdio.h>
 
 //--------------------------------------------------------------------- Keyboard
@@ -10,9 +11,9 @@ void KYBinitialise(void)
 }
 
 /// Reads all input characters after pressing Enter.
-/// @post All remaining buffered characters are removed from the input buffer
+/// \post All remaining buffered characters are removed from the input buffer
 /// (stdin).
-/// @return First read character.
+/// \return First read character.
 char KYBgetchar(void)
 {
    char c = getchar();

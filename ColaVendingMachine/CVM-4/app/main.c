@@ -5,7 +5,7 @@
 /// Executes the state machine (FSM: Finite State Machine) in
 /// an endless loop processing the generated event by a subsystem. 
 /// The state machine is excuted by the function #eventHandler. 
-/// @author Jos Onokiewicz
+/// \author Jos Onokiewicz
 int main(void)
 {
    event_e currentEvent = E_START;
