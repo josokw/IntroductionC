@@ -1,8 +1,9 @@
+#include "fsm.h"
 #include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
-#include "fsm.h"
+
 
 typedef enum {
    S_NO,
@@ -30,7 +31,7 @@ int availableChange = 0;
 event_e generateEvent(void)
 {
    event_e evnt = E_NO;
-   switch(currentState)
+   switch (currentState)
    {
       case S_NO:
          DSPshowSystemError("current state is not initialised");
@@ -67,116 +68,122 @@ event_e generateEvent(void)
 /// received #event.
 /// If an #event is received that should not be in handled in the
 /// currentState this is considered as a system error.
-/// The switch statements use the default case to show an appropriate message
-/// to the display.
-/// It is necessary to give in all default cases the nextState an appropriate
-/// value to avoid undefined behaviour.
-/// \post Updated #currentState by nextSate.
+/// The switch statements use the default case to show an appropriate
+/// message to the display. It is necessary to give in all default cases
+/// the nextState an appropriate value to avoid undefined behaviour. \post
+/// Updated #currentState by nextSate.
 void eventHandler(event_e event)
 {
    state_e nextState = S_NO;
 
-   switch(currentState)
+   switch (currentState)
    {
-   case S_START:
-      event = CVMinitialise();
-      nextState = S_INITIALISED;
-      break;
+      case S_START:
+         event = CVMinitialise();
+         nextState = S_INITIALISED;
+         break;
 
-   case S_INITIALISED:
-      insertedMoney = 0;
-      priceCola = 125;
-      change = 0;
-      availableChange = 20;
-      event = E_CONTINUE;
-      nextState = S_WAIT_FOR_COINS;
-      break;
-
-   case S_WAIT_FOR_COINS:
-      switch (event)
-      {
-      case E_10C:
-         nextState = S_DETECTED_10C;
-         break;
-      case E_20C:
-         nextState = S_DETECTED_20C;
-         break;
-      default:
-         DSPshowSystemError("State S_WAIT_FOR_COINS received unknown event");
-         nextState = S_WAIT_FOR_COINS;
-      }
-      break;
-
-   case S_DETECTED_10C:
-      switch (event)
-      {
-      case E_NOT_ENOUGH:
-         nextState = S_WAIT_FOR_COINS;
-         break;
-      case E_ENOUGH:
-         nextState = S_DISPENSE;
-         break;
-      default:
-         DSPshowSystemError("State S_DETECTED_10C received unknown event");
-         nextState = S_WAIT_FOR_COINS;
-         break;
-      }
-      break;
-
-   case S_DETECTED_20C:
-      switch (event)
-      {
-      case E_NOT_ENOUGH:
-         nextState = S_WAIT_FOR_COINS;
-         break;
-      case E_ENOUGH:
-         nextState = S_DISPENSE;
-         break;
-      default:
-         DSPshowSystemError("State S_DETECTED_20C received unkown event");
-         nextState = S_WAIT_FOR_COINS;
-         break;
-      }
-      break;
-
-   case S_DISPENSE:
-      switch (event)
-      {
-      case E_NO_CHANGE_DISPENSE:
-         DSPshow("Sorry, no change available", 3);
-         CHDdispenseChange(insertedMoney);
+      case S_INITIALISED:
          insertedMoney = 0;
-         nextState = S_WAIT_FOR_UPDATE_CHANGE;
-         break;
-      case E_CHANGE_DISPENSE:
-         DSPshow("Please take your cola", 3);
-         CLDdispenseCola();
-         CHDdispenseChange(change);
-         insertedMoney = 0;
+         priceCola = 125;
+         change = 0;
+         availableChange = 20;
+         event = E_CONTINUE;
          nextState = S_WAIT_FOR_COINS;
          break;
+
+      case S_WAIT_FOR_COINS:
+         switch (event)
+         {
+            case E_10C:
+               nextState = S_DETECTED_10C;
+               break;
+            case E_20C:
+               nextState = S_DETECTED_20C;
+               break;
+            default:
+               DSPshowSystemError(
+                  "State S_WAIT_FOR_COINS received unknown event");
+               nextState = S_WAIT_FOR_COINS;
+         }
+         break;
+
+      case S_DETECTED_10C:
+         switch (event)
+         {
+            case E_NOT_ENOUGH:
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            case E_ENOUGH:
+               nextState = S_DISPENSE;
+               break;
+            default:
+               DSPshowSystemError(
+                  "State S_DETECTED_10C received unknown event");
+               nextState = S_WAIT_FOR_COINS;
+               break;
+         }
+         break;
+
+      case S_DETECTED_20C:
+         switch (event)
+         {
+            case E_NOT_ENOUGH:
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            case E_ENOUGH:
+               nextState = S_DISPENSE;
+               break;
+            default:
+               DSPshowSystemError(
+                  "State S_DETECTED_20C received unkown event");
+               nextState = S_WAIT_FOR_COINS;
+               break;
+         }
+         break;
+
+      case S_DISPENSE:
+         switch (event)
+         {
+            case E_NO_CHANGE_DISPENSE:
+               DSPshow("Sorry, no change available", 3);
+               DSPclearLine(5);
+               CHDdispenseChange(insertedMoney);
+               insertedMoney = 0;
+               nextState = S_WAIT_FOR_UPDATE_CHANGE;
+               break;
+            case E_CHANGE_DISPENSE:
+               DSPshow("Please take your cola", 3);
+               DSPclearLine(5);
+               CLDdispenseCola();
+               CHDdispenseChange(change);
+               insertedMoney = 0;
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            default:
+               DSPshowSystemError(
+                  "State S_DISPENSE received unknown event");
+               nextState = S_WAIT_FOR_COINS;
+               break;
+         }
+         break;
+
+      case S_WAIT_FOR_UPDATE_CHANGE:
+         DSPshow("Ask administrator to fill change storage ... done", 3);
+         availableChange = 20;
+         nextState = S_WAIT_FOR_COINS;
+         break;
+
       default:
-         DSPshowSystemError("State S_DISPENSE received unknown event");
-         nextState = S_WAIT_FOR_COINS;
+         DSPshowSystemError("CVM in unknown current state");
+         nextState = S_INITIALISED;
          break;
-      }
-      break;
-
-   case S_WAIT_FOR_UPDATE_CHANGE:
-      DSPshow("Ask administrator to fill change storage ... done", 3);
-      availableChange = 20;
-      nextState = S_WAIT_FOR_COINS;
-      break;
-
-   default:
-      DSPshowSystemError("CVM in unknown current state");
-      nextState = S_INITIALISED;
-      break;
    }
    currentState = nextState;
 }
 
-//------------------------------------------------ CVM functions executed in FSM
+//------------------------------------------------ CVM functions executed
+//in FSM
 
 /// Initialises all subsystems (devices) and puts an initial text to the
 /// display.
