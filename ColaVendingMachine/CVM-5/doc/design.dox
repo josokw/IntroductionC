@@ -11,7 +11,11 @@ A CVM device has several subsystems:
 - coin acceptor
 - cola dispenser
 
-\todo Add UML deployment diagram.
+\startuml{deployment.png} "Architecture subsystems view" width=6cm
+!include ColaVendingMachine-4-layer.puml
+\enduml
+
+\todo Add missing subsystems to diagram.
 
 \section secState State machine view
 
