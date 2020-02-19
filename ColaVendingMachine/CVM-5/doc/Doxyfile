@@ -38,7 +38,7 @@ PROJECT_NAME           = "Cola Vending Machine: CVM"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 5.1
+PROJECT_NUMBER         = v5.1
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -2423,8 +2423,7 @@ DIAFILE_DIRS           =
 # generate a warning when it encounters a \startuml command in this case and
 # will not generate output for the diagram.
 
-PLANTUML_JAR_PATH = ../../../PlantUML
-
+PLANTUML_JAR_PATH      = ../../../PlantUML
 
 # When using plantuml, the PLANTUML_CFG_FILE tag can be used to specify a
 # configuration file for plantuml.
