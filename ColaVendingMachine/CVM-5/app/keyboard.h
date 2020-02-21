@@ -8,5 +8,6 @@ void KYBinitialise(void);
 void KYBclear(void);
 char KYBgetchar(void);
 int KYBgetint(int ifWrongValue);
+double KYBgetdouble(double ifWrongValue);
 
 #endif
