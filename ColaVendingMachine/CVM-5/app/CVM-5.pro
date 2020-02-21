@@ -10,7 +10,8 @@ SOURCES += main.c \
     coinAcceptor.c \
     changeDispenser.c \
     colaDispenser.c \
-    keyboard.c
+    keyboard.c \
+    systemErrors.c
 
 HEADERS += \
     appInfo.h \
@@ -20,4 +21,5 @@ HEADERS += \
     changeDispenser.h \
     events.h \
     colaDispenser.h \
-    keyboard.h
+    keyboard.h \
+    systemErrors.h
