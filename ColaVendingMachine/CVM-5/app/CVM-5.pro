@@ -22,4 +22,5 @@ HEADERS += \
     events.h \
     colaDispenser.h \
     keyboard.h \
+    states.h \
     systemErrors.h
