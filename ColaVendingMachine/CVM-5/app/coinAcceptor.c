@@ -1,6 +1,7 @@
 #include "coinAcceptor.h"
 #include "display.h"
 #include "keyboard.h"
+#include "systemErrors.h"
 
 #include <stdio.h>
 
@@ -9,11 +10,13 @@
 void CNAinitialise(void)
 {
    DSPdebugSystemInfo("Coin Acceptor: initialised");
+   if (KYBaskforYN("Selftest: init error"))
+   {
+      setSystemErrorBit(ERR_INIT_CNA);
+      DSPshowDisplay();
+   }
 }
 
-/// Checks in a loop if the input of a coin code is correct.
-/// If the entered value is not correct this function will ask again for input.
-/// \return Entered coin code.
 char CNAinputCoin(void)
 {
    int coinIsOK = 0;
@@ -38,8 +41,6 @@ char CNAinputCoin(void)
    return coin;
 }
 
-/// Simulates the entering of coins.
-/// \return Generated CNA subsystem event.
 event_e CNAcheckCoins(void)
 {
    char coin = '0';
@@ -47,7 +48,7 @@ event_e CNAcheckCoins(void)
 
    DSPsimulationSystemInfo("Enter a coin: <1> 10c  <2> 20c");
    coin = CNAinputCoin();
-   switch(coin)
+   switch (coin)
    {
       case '1':
          event = E_10C;

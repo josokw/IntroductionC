@@ -3,7 +3,9 @@
 
 //---------------------------------------------------------------------- DiSPlay
 
+/// Initialises the Display (DSP) subsystem.
 void DSPinitialise(void);
+
 void DSPclear(void);
 void DSPclearLine(int ln);
 void DSPshowDisplay(void);

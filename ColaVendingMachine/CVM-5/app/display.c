@@ -1,9 +1,11 @@
 #include "display.h"
 #include "appInfo.h"
+#include "systemErrors.h"
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
 
 //---------------------------------------------------------------------- DiSPlay
 
@@ -21,7 +23,7 @@ void DSPinitialise(void)
       topDisplay[i] = '=';
    }
    strncpy(display[0], topDisplay, DSP_WIDTH);
-   strncpy(display[DSP_HEIGHT -1], topDisplay, DSP_WIDTH);
+   strncpy(display[DSP_HEIGHT - 1], topDisplay, DSP_WIDTH);
    for (int i = 1; i < DSP_HEIGHT - 1; i++)
    {
       display[i][0] = '|';
@@ -46,6 +48,12 @@ void DSPclearLine(int ln)
    strcpy(display[ln], "| ");
 }
 
+void DSPshowSystemErrorBits(void)
+{
+   printf("|  System error bits: %s\n", getSystemErrorBitsString());
+   printf("%s\n", display[0]);
+}
+
 void DSPshowDisplay(void)
 {
    DSPclear();
@@ -53,6 +61,7 @@ void DSPshowDisplay(void)
    {
       printf("%s\n", display[row]);
    }
+   DSPshowSystemErrorBits();
 }
 
 void DSPshow(const char *text, int row)

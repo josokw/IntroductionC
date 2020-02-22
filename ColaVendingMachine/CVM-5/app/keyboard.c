@@ -1,5 +1,7 @@
 #include "keyboard.h"
 #include "display.h"
+
+#include <ctype.h>
 #include <stdio.h>
 
 //--------------------------------------------------------------------- Keyboard
@@ -55,4 +57,16 @@ double KYBgetdouble(double ifWrongValue)
       input = ifWrongValue;
    }
    return input;
+}
+
+int KYBaskforYN(const char questionText[])
+{
+   char c;
+
+   printf("\n--        %s [Y/n]? ", questionText);
+   scanf("%c", &c);
+   c = toupper(c);
+   KYBclear();
+
+   return (c == '\n' || c == 'Y');
 }
