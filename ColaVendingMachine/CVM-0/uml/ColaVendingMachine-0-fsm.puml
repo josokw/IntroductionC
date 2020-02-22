@@ -1,0 +1,31 @@
+@startuml
+
+hide empty description
+
+title FSM Cola Vending Machine v0.1
+
+[*] --> Initialised : E_START / CVMinitialise()
+Initialised : insertedMoney = 0
+Initialised : priceCola = 125
+Initialised ---> WaitForCoins : E_CONTINUE[no init error(s)]
+Initialised ---> [*] : E_CONTINUE[init error(s)]/CVMshutdown()
+
+WaitForCoins --> Detected_20C : E_20C
+Detected_20C : insertedMoney += 20
+Detected_20C -up-> WaitForCoins : E_NOT_ENOUGH
+Detected_20C --> WaitForCoins : E_ENOUGH / CLDdispenseCola()
+
+WaitForCoins --> Detected_50C : E_50C
+Detected_50C : insertedMoney += 50
+Detected_50C -up-> WaitForCoins : E_NOT_ENOUGH
+Detected_50C --> WaitForCoins : E_ENOUGH / CLDdispenseCola()
+
+note right of Initialised
+    All subsystems in CVM initialised and executed selftests.
+end note
+
+note left of Initialised #red
+    All currency values in cents (integers).
+end note
+
+@enduml
