@@ -3,8 +3,8 @@
 
 /// \brief Error bit index values.
 typedef enum {
-   ERR_INIT_CNA, ///< Initialisation error Coin Acceptor
-   ERR_INIT_CLD  ///< Initialisation error Cola Dispenser
+   ERR_INIT_CNA, ///< Initialisation error Coin Acceptor selftest
+   ERR_INIT_CLD  ///< Initialisation error Cola Dispenser selftest
 } error_t;
 
 /// Type name for bit mapped errors: 8 bits.

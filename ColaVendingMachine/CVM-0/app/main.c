@@ -4,7 +4,7 @@
 
 /// Executes the state machine (FSM: Finite State Machine) in an endless loop 
 /// processing the generated events by the subsystems.
-/// The state machine is executed by the function #eventHandler.
+/// The state machine is executed by the function eventHandler().
 /// \author Jos Onokiewicz
 int main(void)
 {
