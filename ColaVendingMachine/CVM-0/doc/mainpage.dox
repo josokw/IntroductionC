@@ -1,0 +1,20 @@
+/*!
+
+\mainpage Compile and execute the application
+
+\section sec1 How to compile
+
+The CVM application is developed using QtCreator in a C project.
+
+Use the C11 compiler option in the CVM-0.pro file:
+\verbatim CONFIG += c11 \endverbatim
+
+Press the green button down left to the editor for compiling the code project.
+
+\section sec2 User manual
+
+Start the CVM application as follows: ...
+
+\todo Write a complete user manual.
+
+*/

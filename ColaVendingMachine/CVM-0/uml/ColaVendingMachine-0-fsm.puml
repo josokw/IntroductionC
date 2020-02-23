@@ -2,7 +2,7 @@
 
 hide empty description
 
-title FSM Cola Vending Machine v0.1
+title FSM Cola Vending Machine
 
 [*] --> Initialised : E_START / CVMinitialise()
 Initialised : insertedMoney = 0
