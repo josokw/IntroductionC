@@ -9,7 +9,10 @@ void KYBinitialise(void);
 /// Empty input buffer (stdin).
 void KYBclear(void);
 
-/// Read one character, remaining buffered characters will be deleted.
+/// Reads all input characters after pressing Enter.
+/// \post All remaining buffered characters are removed from the input buffer
+/// (stdin).
+/// \return First read character.
 char KYBgetchar(void);
 
 /// Read one integer value, remaining buffered characters will be deleted.
