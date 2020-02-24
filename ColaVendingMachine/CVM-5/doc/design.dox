@@ -4,15 +4,17 @@
 
 \section secArch Architecture subsystems view
 
-A CVM device has several subsystems:
+A CVM device has several *subsystems* (software API of hardware):
 - display
 - keyboard
 - change dispenser
 - coin acceptor
 - cola dispenser
 
+- display + keyboard = *TUI* Textual User Interface (terminal user interface)
+
 \startuml{deployment.png} "Architecture subsystems view" width=6cm
-!include ColaVendingMachine-4-layer.puml
+!include ColaVendingMachine-5-layer.puml
 \enduml
 
 \todo Add missing subsystems to diagram.

@@ -5,6 +5,7 @@ title CVM layered architecture
 package "User Interface Layer" {
     [Display]
     [Keyboard]
+    [TUI]
 }
 
 package "System Control Layer" {
@@ -29,6 +30,8 @@ package "Hardware Abstraction Layer" {
 [Coin Acceptor] --> [Hardware IO]
 [Cola Dispenser] --> [Hardware IO]
 [Change Dispenser] --> [Hardware IO]
+[TUI] -down-> [Keyboard]
+[TUI] -down-> [Display]
 [Display] --> [Hardware IO]
 [Keyboard] --> [Hardware IO]
 
