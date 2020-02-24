@@ -5,6 +5,7 @@ CONFIG -= qt
 CONFIG += c11
 
 SOURCES += main.c \
+    TUI.c \
     fsm.c \
     display.c \
     coinAcceptor.c \
@@ -14,6 +15,7 @@ SOURCES += main.c \
     systemErrors.c
 
 HEADERS += \
+    TUI.h \
     appInfo.h \
     fsm.h \
     display.h \

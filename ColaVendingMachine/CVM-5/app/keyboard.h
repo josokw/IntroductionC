@@ -9,7 +9,10 @@ void KYBinitialise(void);
 /// Empty input buffer (stdin).
 void KYBclear(void);
 
-/// Read one character, remaining buffered characters will be deleted.
+/// Reads all input characters after pressing Enter.
+/// \post All remaining buffered characters are removed from the input buffer
+/// (stdin).
+/// \return First read character.
 char KYBgetchar(void);
 
 /// Read one integer value, remaining buffered characters will be deleted.
@@ -21,10 +24,5 @@ int KYBgetint(int ifWrongValue);
 /// \return the read in double value, or if input is not a double ifWrongValue
 /// will be returned.
 double KYBgetdouble(double ifWrongValue);
-
-/// Show questionText extended with '[Y/n]'. User can enter Y by only pressing
-/// \<enter\>.
-/// \return boolean value, equals true if Y has been chosen.
-int KYBaskforYN(const char questionText[]);
 
 #endif

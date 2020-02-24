@@ -2,6 +2,7 @@
 #include "display.h"
 #include "keyboard.h"
 #include "systemErrors.h"
+#include "TUI.h"
 
 #include <stdio.h>
 
@@ -10,7 +11,7 @@
 void CHDinitialise(void)
 {
    DSPdebugSystemInfo("Change Dispenser: initialised");
-   if (KYBaskforYN("Selftest: init error"))
+   if (TUIsimulationSystemInputYN("Selftest Change Dispenser: init error"))
    {
       setSystemErrorBit(ERR_INIT_CHD);
       DSPshowDisplay();

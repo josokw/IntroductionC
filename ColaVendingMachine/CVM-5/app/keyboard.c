@@ -20,10 +20,6 @@ void KYBclear(void)
    }
 }
 
-/// Reads all input characters after pressing Enter.
-/// \post All remaining buffered characters are removed from the input buffer
-/// (stdin).
-/// \return First read character.
 char KYBgetchar(void)
 {
    char c = getchar();
@@ -57,16 +53,4 @@ double KYBgetdouble(double ifWrongValue)
       input = ifWrongValue;
    }
    return input;
-}
-
-int KYBaskforYN(const char questionText[])
-{
-   char c;
-
-   printf("\n--        %s [Y/n]? ", questionText);
-   scanf("%c", &c);
-   c = toupper(c);
-   KYBclear();
-
-   return (c == '\n' || c == 'Y');
 }
