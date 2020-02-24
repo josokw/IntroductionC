@@ -1,26 +1,46 @@
 /*!
 
-\page sec_design Design
+\page sec_design Software Design
 
 \section secArch Architecture subsystems view
 
 A CVM device has several *subsystems* (software API of hardware):
-- display
-- keyboard
-- change dispenser
-- coin acceptor
-- cola dispenser
+- Display
+- Keyboard
+- TUI *Textual User Interface* (terminal user interface), 
+  uses the Display and Keyboard API
+- Coin Acceptor
+- Cola Dispenser
+- Change Dispenser
+- FSM state machine for controlling the CVM, is executed by main()
 
-- display + keyboard = *TUI* Textual User Interface (terminal user interface)
+The arrows are code dependency relations (uses relations).
+In C code these are the \#include dependencies.
 
 \startuml{deployment.png} "Architecture subsystems view" width=6cm
 !include ColaVendingMachine-5-layer.puml
 \enduml
 
-\todo Add missing subsystems to diagram.
+The Hardware IO in the *HAL* layer is not implemented.
+Input is simulated by user keyboard input.
 
 \section secState State machine view
 
-\todo Add UML state chart.
+State transition notation: 
+
+\verbatim event[condition]/action() 
+\endverbatim
+
+- if the event occurs and the condition is satisfied, 
+  then the action will be executed and the state transion will occur.
+- Event names are in uppercase, prefixed by **E_**.
+- The action is the name of one or more (short) C functions without parameters, 
+  prefixed by the abbreviated name of the related subsystem.
+- All the names should be used in the C code.
+\section secState State machine view
+
+\startuml{fsm-5.png} "State machine view" width=5cm
+!include ColaVendingMachine-5-fsm.puml
+\enduml
 
 */
