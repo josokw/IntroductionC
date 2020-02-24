@@ -8,7 +8,6 @@
 #include <stdlib.h>
 
 static state_e currentState = S_START;
-// static event_e event = E_NO;
 static int insertedMoney = 0;
 static int priceCola = 0;
 
