@@ -145,8 +145,6 @@ void eventHandler(event_e event)
          break;
    }
    currentState = nextState;
-
-   //   return nextEvent;
 }
 
 void CVMinitialiseSubSystems(void)
