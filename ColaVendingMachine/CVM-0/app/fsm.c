@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 
+// static will limit the scope of global vars to this file
 static state_e currentState = S_START;
 static int insertedMoney = 0;
 static int priceCola = 0;
@@ -129,7 +130,6 @@ void eventHandler(event_e event)
                break;
             case E_ENOUGH:
                CLDdispenseCola();
-               //            DSPshowDelete("")
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
@@ -140,7 +140,7 @@ void eventHandler(event_e event)
          break;
 
       default:
-         DSPshowSystemError("Sate panic: CVM is in unknown current state");
+         DSPshowSystemError("State panic: CVM is in unknown current state");
          nextState = S_INITIALISED_SUBSYSTEMS;
          break;
    }
