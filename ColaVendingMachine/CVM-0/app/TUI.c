@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <string.h>
 
-int TUIaskforYN(const char questionText[])
+int TUIsimulationSystemInputYN(const char questionText[])
 {
    char input = '\0';
 
-   printf("\n--        %s [Y/n]? ", questionText);
+   printf("\n-- SIMULATION  %s [y/n]? ", questionText);
+
    scanf("%c", &input);
    input = toupper(input);
    KYBclear();

@@ -1,10 +1,10 @@
 #ifndef TUI_H
 #define TUI_H
 
-/// Shows questionText extended with '[Y/n]'.
+/// Shows questionText extended with '[y/n]'.
 /// User can enter Y by only pressing \<enter\>.
 /// \return boolean value, equals true if Y has been chosen.
-int TUIaskforYN(const char questionText[]);
+int TUIsimulationSystemInputYN(const char questionText[]);
 
 /// Shows text, user can enter a char. If this char is not in chrs then the user
 /// gets the same text extended with AGAIN.

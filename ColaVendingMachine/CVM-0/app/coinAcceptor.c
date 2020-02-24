@@ -11,7 +11,7 @@
 void CNAinitialise(void)
 {
    DSPdebugSystemInfo("Coin Acceptor: initialised");
-   if (TUIaskforYN("Selftest: init error"))
+   if (TUIsimulationSystemInputYN("Selftest Coin Acceptor: init error"))
    {
       setSystemErrorBit(ERR_INIT_CNA);
       DSPshowDisplay();
