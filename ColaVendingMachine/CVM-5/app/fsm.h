@@ -4,21 +4,21 @@
 #include "events.h"
 
 /// Because we do not buffer events in an event queue, we send in the
-/// current state, #currentState, only events that can be handled
-/// according to the state chart diagram.
+/// current state only events that can be handled according to the state chart 
+/// diagram.
 /// Implementing buffering, using a queue and multi-threading is outside
 /// the scope of this introduction to C programming.
 /// \return Generated event for the eventHandler() function.
 event_e generateEvent(void);
 
-/// Uses the global variable #currentState to determine how to process the
-/// received #event.
-/// If an #event is received that should not be in handled in the
+/// Uses the global variable currentState to determine how to process the
+/// received event.
+/// If an event is received that should not be in handled in the
 /// currentState this is considered as a system error.
 /// The switch statements use the default case to show an appropriate
 /// message to the display. It is necessary to give in all default cases
 /// the nextState an appropriate value to avoid undefined behaviour. 
-/// \post Updated #currentState by nextSate.
+/// \post Updated currentState by nextSate.
 void eventHandler(event_e currentEvent);
 
 /// Initialises all subsystems.

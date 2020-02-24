@@ -27,6 +27,7 @@ package "Hardware Abstraction Layer" {
 [FSM] -down-> [Change Dispenser]
 [FSM] -up-> [Display]
 [FSM] -up-> [Keyboard]
+[FSM] -up-> [TUI]
 [Coin Acceptor] --> [Hardware IO]
 [Cola Dispenser] --> [Hardware IO]
 [Change Dispenser] --> [Hardware IO]

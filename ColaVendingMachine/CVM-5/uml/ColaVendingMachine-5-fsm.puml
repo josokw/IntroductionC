@@ -10,7 +10,7 @@ InitialisedSubSystems : priceCola = 125
 InitialisedSubSystems : change = 0
 InitialisedSubSystems : availableChange = 20
 InitialisedSubSystems ---> WaitForCoins : E_CONTINUE[no init error(s)]
-InitialisedSubSystems ---> [*] : E_CONTINUE[init error(s)]/CVMshutdown()
+InitialisedSubSystems ---> [*] : E_CONTINUE[init error(s)] / CVMshutdown()
 
 WaitForCoins --> Detected_20C : E_20C
 Detected_20C : insertedMoney += 20
@@ -22,7 +22,7 @@ Detected_50C : insertedMoney += 50
 Detected_50C --> WaitForCoins : E_NOT_ENOUGH
 Detected_50C --> Dispense :  E_ENOUGH / CVMcheckChange()
 
-Dispense --> WaitForUpdateChange: E_NO_CHANGEDISPENSE /	CHDdispenseChange(insertedMoney)
+Dispense --> WaitForUpdateChange: E_NO_CHANGEDISPENSE / CHDdispenseChange(insertedMoney)
 WaitForUpdateChange --> WaitForCoins
 
 Dispense --> WaitForCoins :  E_CHANGEDISPENSE / CLDdispenseCola();\n   CHDdispenseChange(change)
