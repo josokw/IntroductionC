@@ -58,15 +58,3 @@ double KYBgetdouble(double ifWrongValue)
    }
    return input;
 }
-
-int KYBaskforYN(const char questionText[])
-{
-   char c;
-
-   printf("\n--        %s [Y/n]? ", questionText);
-   scanf("%c", &c);
-   c = toupper(c);
-   KYBclear();
-
-   return (c == '\n' || c == 'Y');
-}

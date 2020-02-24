@@ -22,9 +22,4 @@ int KYBgetint(int ifWrongValue);
 /// will be returned.
 double KYBgetdouble(double ifWrongValue);
 
-/// Show questionText extended with '[Y/n]'. User can enter Y by only pressing
-/// \<enter\>.
-/// \return boolean value, equals true if Y has been chosen.
-int KYBaskforYN(const char questionText[]);
-
 #endif
