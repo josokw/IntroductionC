@@ -90,8 +90,8 @@ CMakeLists.txt.user*
 depend
 
 # Doxygen
-ColaVendingMachine/CVM-0/app/CVM-0
-ColaVendingMachine/CVM-0/doc/html
+ColaVendingMachine/CVM-1/app/CVM-1
+ColaVendingMachine/CVM-1/doc/html
 
 ColaVendingMachine/CVM-3/app/CVM-3
 ColaVendingMachine/CVM-3/doc/html
