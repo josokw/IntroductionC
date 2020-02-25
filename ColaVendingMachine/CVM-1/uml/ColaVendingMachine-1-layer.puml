@@ -1,11 +1,13 @@
 @startuml
 
-title CVM layered architecture
+title CVM layered architecture\n
+
+actor user
 
 package "User Interface Layer" {
     [Display]
     [Keyboard]
-    [TUI]
+    [TUI] #green
 }
 
 package "System Control Layer" {
@@ -17,8 +19,8 @@ package "Subsystems Layer" {
     [Coin Acceptor]
 }
 
-package "Hardware Abstraction Layer" {
-    [Hardware IO]
+package "Hardware Abstraction Layer = HAL" {
+    [Hardware IO] #grey
 }
 
 [FSM] -down-> [Coin Acceptor]
@@ -32,5 +34,7 @@ package "Hardware Abstraction Layer" {
 [TUI] -down-> [Display]
 [Display] --> [Hardware IO]
 [Keyboard] --> [Hardware IO]
+
+user -- [TUI]
 
 @enduml
