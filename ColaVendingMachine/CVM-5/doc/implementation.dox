@@ -1,0 +1,16 @@
+/*!
+
+\page pImpl Software implementation
+
+\section secImplGuidelines Guidelines
+
+Guidelines for managing complexity:
+
+- implement every subsystem in a separate C module.
+- naming convention: use the name of the subsystem for the name of the C module.
+- a C module consist of at least one header .h file and a related implementation .c file.
+
+The Hardware IO in the *HAL* layer is not implemented.
+IO is simulated.
+
+*/
