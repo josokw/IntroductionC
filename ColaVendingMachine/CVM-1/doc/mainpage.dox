@@ -6,7 +6,8 @@
 
 The CVM application is developed using QtCreator in a C project.
 
-Use the C11 compiler option in the CVM-0.pro file:
+Use the C11 compiler option in the CVM-1.pro file:
+
 \verbatim CONFIG += c11 \endverbatim
 
 Press the green button down left to the editor for compiling the code project.
