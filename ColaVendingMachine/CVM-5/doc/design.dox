@@ -1,6 +1,6 @@
 /*!
 
-\page sec_design Software Design
+\page secDesign Software design
 
 \section secArch Architecture subsystems view
 
@@ -17,30 +17,41 @@ A CVM device has several *subsystems* (software API of hardware):
 The arrows are code dependency relations (uses relations).
 In C code these are the \#include dependencies.
 
-\startuml{deployment.png} "Architecture subsystems view" width=6cm
+\startuml{architecture-5.png} "Architecture subsystems view" width=5cm
 !include ColaVendingMachine-5-layer.puml
 \enduml
 
 The Hardware IO in the *HAL* layer is not implemented.
-Input is simulated by user keyboard input.
+Input and output is simulated by user keyboard input and screen output (laptop).
+
+\startuml{architecture-5.png} "Architecture subsystems view" width=5cm
+!include ColaVendingMachine-5-layer-simulation.puml
+\enduml
 
 \section secState State machine view
 
 State transition notation: 
 
-\verbatim event[condition]/action() 
+\verbatim event [condition] / action() 
 \endverbatim
 
-- if the event occurs and the condition is satisfied, 
+- if an event occurs and the condition is satisfied, 
   then the action will be executed and the state transion will occur.
-- Event names are in uppercase, prefixed by **E_**.
-- The action is the name of one or more (short) C functions without parameters 
+- event names are in uppercase, prefixed by **E_**.
+- the action is the name of one or more (short) C functions without parameters 
   or only the important ones, prefixed by the abbreviated name of the related 
   subsystem.
-- All the names should be used in the C code.
+  - FSM of the Cola Vending Machine: 
+    - CVMinitialiseSubSystems() 
+    - CVMshutdownSubSystems()
+  - CoLa Dispenser
+    - CLDdispenseCola()
+- all the names in the diagrams should be used in the C code.
 
 \startuml{fsm-5.png} "State machine view" width=5cm
 !include ColaVendingMachine-5-fsm.puml
 \enduml
+
+A state chart is not a flowdiagram!
 
 */
