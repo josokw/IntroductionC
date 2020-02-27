@@ -1,31 +1,33 @@
 @startuml
 
-title FSM Cola Vending Machine - 2 -
+hide empty description
 
-[*] --> Initialised : E_START / CVMinitialise()
-Initialised : insertedMoney = 0
-Initialised : priceCola = 125
-Initialised : change = 0
-Initialised --> WaitForCoins : E_CONTINUE
+title State chart (FSM) Cola Vending Machine\n
 
-WaitForCoins --> Detected_10C : E_10C
-Detected_10C : insertedMoney += 10
-Detected_10C --> WaitForCoins : E_NOT_ENOUGH
-Detected_10C --> WaitForCoins : \
-	E_ENOUGH / CLDdispenseCola();\n CHDdispenseChange(change);
+[*] --> InitialisedSubSystems : E_START / CVMinitialiseSubSystems()
+InitialisedSubSystems : insertedMoney = 0
+InitialisedSubSystems : priceCola = 125
+InitialisedSubSystems ---> WaitForCoins : E_CONTINUE [no init error(s)]
+InitialisedSubSystems ---> [*] : E_CONTINUE [init error(s)] / CVMshutdownSubSystems()
 
 WaitForCoins --> Detected_20C : E_20C
 Detected_20C : insertedMoney += 20
 Detected_20C --> WaitForCoins : E_NOT_ENOUGH
 Detected_20C --> WaitForCoins : \
-	E_ENOUGH / CLDdispenseCola();\n CHDdispenseChange(change);
+	E_ENOUGH / CLDdispenseCola()\n CHDdispenseChange(change)
 
-note right of Initialised
-	All subsystems in CVM initialised.
+WaitForCoins --> Detected_50C : E_50C
+Detected_50C : insertedMoney += 50
+Detected_50C --> WaitForCoins : E_NOT_ENOUGH
+Detected_50C --> WaitForCoins : \
+	E_ENOUGH / CLDdispenseCola()\n CHDdispenseChange(change)
+
+note right of InitialisedSubSystems
+    All subsystems in CVM initialised and executed selftests
 end note
 
-note left of Initialised #red
-	All currency values in cents.
+note left of InitialisedSubSystems #green
+    All currency values in cents (integers)
 end note
 
 @enduml
