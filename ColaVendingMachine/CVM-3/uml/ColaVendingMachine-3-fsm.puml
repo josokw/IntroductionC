@@ -1,13 +1,15 @@
 @startuml
 
-title FSM Cola Vending Machine - 3 -
+hide empty description
 
-[*] --> Initialised : E_START / CVMinitialise()
-Initialised : insertedMoney = 0
-Initialised : priceCola = 125
-Initialised : change = 0
-Initialised : availableChange = 20
-Initialised --> WaitForCoins : E_CONTINUE
+title State chart (FSM) Cola Vending Machine\n
+
+[*] --> InitialisedSubSystems : E_START / CVMinitialiseSubSystems()
+InitialisedSubSystems : insertedMoney = 0
+InitialisedSubSystems : priceCola = 125
+InitialisedSubSystems : availableChange = 30
+InitialisedSubSystems ---> WaitForCoins : E_CONTINUE [no init error(s)]
+InitialisedSubSystems ---> [*] : E_CONTINUE [init error(s)] / CVMshutdownSubSystems()
 
 WaitForCoins --> Detected_10C : E_10C
 Detected_10C : insertedMoney += 10
@@ -24,12 +26,12 @@ WaitForUpdateChange --> WaitForCoins
 
 Dispense --> WaitForCoins :  E_CHANGEDISPENSE / CLDdispenseCola(); CHDdispenseChange(change)
 
-note right of Initialised
-    All subsystems in CVM initialised.
+note right of InitialisedSubSystems
+    All subsystems in CVM initialised
 end note
 
-note left of Initialised #red
-    All currency values in cents.
+note left of InitialisedSubSystems #red
+    All currency values in cents
 end note
 
 @enduml

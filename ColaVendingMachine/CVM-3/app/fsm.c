@@ -11,7 +11,7 @@
 // static will limit the scope of global vars to this file
 static state_e currentState = S_START;
 static int insertedMoney = 0;
-static int priceCola = 0;
+static int priceCola = 125;
 static int change = 20;
 static int availableChange = 30;
 
