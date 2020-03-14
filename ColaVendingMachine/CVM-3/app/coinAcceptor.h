@@ -5,8 +5,12 @@
 
 //---------------------------------------------------------------- CoiN Acceptor
 
+/// Initialises the Coin Acceptor (CNA) subsystem and executes a selftest.
+/// \post System error bit set. 
 void CNAinitialise(void);
-char CNAinputCoin(void);
-event_e CNAcheckCoins(void);
+
+/// Simulates the entering of coins.
+/// \return Generated CNA subsystem event.
+event_e CNAinputCoins(void);
 
 #endif

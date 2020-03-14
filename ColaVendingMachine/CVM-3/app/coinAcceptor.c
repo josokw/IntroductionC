@@ -1,6 +1,8 @@
 #include "coinAcceptor.h"
+#include "TUI.h"
 #include "display.h"
 #include "keyboard.h"
+#include "systemErrors.h"
 
 #include <stdio.h>
 
@@ -9,49 +11,27 @@
 void CNAinitialise(void)
 {
    DSPdebugSystemInfo("Coin Acceptor: initialised");
-}
-
-/// Checks in a loop if the input of a coin code is correct.
-/// If the entered value is not correct this function will ask again for input.
-/// @return Entered coin code.
-char CNAinputCoin(void)
-{
-   int coinIsOK = 0;
-   char coin = '0';
-   while (!coinIsOK)
+   if (TUIsimulationSystemInputYN("Selftest Coin Acceptor: init error"))
    {
-      coin = KYBgetchar();
-      switch (coin)
-      {
-         case '1':
-         case '2':
-            coinIsOK = 1;
-            break;
-         default:
-            DSPdebugSystemInfo("Coin Acceptor: unknown coin");
-            DSPsimulationSystemInfo("Coins: <1> 10c  <2> 20c");
-            break;
-      }
+      setSystemErrorBit(ERR_INIT_CNA);
+      DSPshowDisplay();
    }
-   return coin;
 }
 
-/// Simulates the entering of coins.
-/// @return Generated CNA subsystem event.
-event_e CNAcheckCoins(void)
+event_e CNAinputCoins(void)
 {
    char coin = '0';
    event_e event = E_NO;
 
-   DSPsimulationSystemInfo("Coins: <1> 10c  <2> 20c");
-   coin = CNAinputCoin();
-   switch(coin)
+   DSPshowDelete("Enter your coins please", 3);
+   coin = TUIsimulationSystemInputChar("Enter a coin: <1> 20c  <2> 50c", "12");
+   switch (coin)
    {
       case '1':
-         event = E_10C;
+         event = E_20C;
          break;
       case '2':
-         event = E_20C;
+         event = E_50C;
          break;
    }
    return event;
