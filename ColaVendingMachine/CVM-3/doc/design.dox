@@ -23,7 +23,7 @@ In C code these are the \#include dependencies.
 The Hardware IO in the *HAL* layer is not implemented.
 Input and output is simulated by user keyboard input and screen output (laptop).
 
-\startuml{architecture-3.png} "Architecture subsystems view" width=5cm
+\startuml{architecture-3-sim.png} "Architecture subsystems view" width=5cm
 !include ColaVendingMachine-3-layer-simulation.puml
 \enduml
 
@@ -43,12 +43,13 @@ State transition notation:
   - FSM of the Cola Vending Machine: 
     - CVMinitialiseSubSystems() 
     - CVMshutdownSubSystems()
-    - CoLa Dispenser
+    - CVMcheckChange()
     - CLDdispenseCola()
+    - CHDdispenseChange()
 - all the names in the diagrams should be used in the C code.
 
-\startuml{fsm-0.png} "State machine view" width=5cm
-!include ColaVendingMachine-1-fsm.puml
+\startuml{fsm-3.png} "State machine view" width=5cm
+!include ColaVendingMachine-3-fsm.puml
 \enduml
 
 A state chart is not a flowdiagram!
