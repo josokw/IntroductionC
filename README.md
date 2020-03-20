@@ -4,7 +4,7 @@
 - Branch: **CVM-5**
   
   - CVM-1: **CVM-1.3** beta release, Doxygen documented, UML diagrams available.
-  - CVM-2: **CVM-2.0** beta release, Doxygen documented, UML diagrams available.
+  - CVM-2: **CVM-2.1** beta release, Doxygen documented, UML diagrams available.
   - CVM-3: **CVM-3.0** beta release, Doxygen documented, UML diagrams available.
   - CVM-4 under construction, not yet modular like CVM-1.
   - CVM-5: **CVM-5.4** under construction, modular like CVM-1, Doxygen documented, UML diagrams available.
