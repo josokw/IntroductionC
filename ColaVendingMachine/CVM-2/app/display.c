@@ -6,14 +6,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 //---------------------------------------------------------------------- DiSPlay
 
-#define DSP_HEIGHT 10
-#define DSP_WIDTH 70
+#define DSP_HEIGHT 10 ///< The number of available display rows
+#define DSP_WIDTH 70  ///< The number of available display columns
 
 static char display[DSP_HEIGHT][DSP_WIDTH + 1] = {{0}};
-static char line[DSP_WIDTH + 1] = {0};
 static char topDisplay[DSP_WIDTH] = {0};
 
 void DSPinitialise(void)
@@ -29,23 +27,35 @@ void DSPinitialise(void)
       display[i][0] = '|';
    }
    strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
+
    DSPshowDisplay();
    DSPdebugSystemInfo("Display: initialised");
 }
 
 void DSPclear(void)
 {
+   if (!system(NULL))
+   {
+      printf("\nERROR command processor is not available\n\n");
+      exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   }
+
 #ifdef _WIN32
-   system("cls");
+   int error = system("cls"); // Execute WIN32 cls command
 #endif
 #ifdef __linux__
-   system("clear");
+   int error = system("clear"); // Execute Linux clear command
 #endif
+
+   if (error != 0)
+   {
+      printf("\nERROR terminal command fails\n\n");
+   }
 }
 
-void DSPclearLine(int ln)
+void DSPclearLine(int row)
 {
-   strcpy(display[ln], "| ");
+   strcpy(display[row], "| ");
 }
 
 void DSPshowSystemErrorBits(void)
@@ -64,7 +74,7 @@ void DSPshowDisplay(void)
    DSPshowSystemErrorBits();
 }
 
-void DSPshow(const char *text, int row)
+void DSPshow(const char text[], int row)
 {
    DSPdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
@@ -73,7 +83,7 @@ void DSPshow(const char *text, int row)
    DSPshowDisplay();
 }
 
-void DSPshowDelete(const char *text, int row)
+void DSPshowDelete(const char text[], int row)
 {
    DSPdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
@@ -85,17 +95,17 @@ void DSPshowDelete(const char *text, int row)
    DSPshowDisplay();
 }
 
-void DSPdebugSystemInfo(const char *text)
+void DSPdebugSystemInfo(const char text[])
 {
    printf("\n-- DEBUG  %s   ", text);
 }
 
-void DSPsimulationSystemInfo(const char *text)
+void DSPsimulationSystemInfo(const char text[])
 {
    printf("\n-- SIMULATION  %s   ", text);
 }
 
-void DSPshowSystemError(const char *text)
+void DSPshowSystemError(const char text[])
 {
    printf("\n** SYSTEM ERROR  %s   ", text);
 }
