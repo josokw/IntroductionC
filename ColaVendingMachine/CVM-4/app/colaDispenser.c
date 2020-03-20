@@ -10,5 +10,6 @@ void CLDinitialise(void)
 
 void CLDdispenseCola(void)
 {
+   DSPshowDelete("Please, take your cola", 3);
    DSPdebugSystemInfo("Cola Dispenser: dispensed cola");
 }

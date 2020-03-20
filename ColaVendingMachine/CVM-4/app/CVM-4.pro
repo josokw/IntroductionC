@@ -5,19 +5,24 @@ CONFIG -= qt
 CONFIG += c11
 
 SOURCES += main.c \
+    TUI.c \
     fsm.c \
     display.c \
     coinAcceptor.c \
     changeDispenser.c \
     colaDispenser.c \
-    keyboard.c
+    keyboard.c \
+    systemErrors.c
 
 HEADERS += \
+    TUI.h \
+    appInfo.h \
     fsm.h \
     display.h \
     coinAcceptor.h \
     changeDispenser.h \
     events.h \
     colaDispenser.h \
-    keyboard.h
-
+    keyboard.h \
+    states.h \
+    systemErrors.h

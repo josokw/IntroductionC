@@ -1,74 +1,55 @@
 #include "fsm.h"
-#include "appInfo.h"
 #include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
+#include "states.h"
+#include "systemErrors.h"
 
-typedef enum {
-   S_NO,
-   S_START,
-   S_INITIALISED,
-   S_WAIT_FOR_COINS,
-   S_DETECTED_10C,
-   S_DETECTED_20C,
-   S_DISPENSE,
-   S_WAIT_FOR_UPDATE_CHANGE
-} state_e;
+#include <stdlib.h>
 
-state_e currentState = S_START;
-event_e event = E_NO;
-int insertedMoney = 0;
-int priceCola = 0;
-int change = 0;
-int availableChange = 0;
+// static will limit the scope of global vars to this file
+static state_e currentState = S_START;
+static int insertedMoney = 0;
+static int priceCola = 0;
+static int change = 0;
+static int availableChange = 0;
 
-/// Because we do not buffer events in an event queue, we send in the
-/// current state, #currentState, only events that can be handled.
-/// Implementing buffering using a queue and multi-threading is outside
-/// the scope of this introduction to C programming.
-/// \return Generated event for the #eventHandler function.
 event_e generateEvent(void)
 {
-   event_e evnt = E_NO;
+   event_e event = E_NO;
+
    switch (currentState)
    {
-      case S_NO:
-         DSPshowSystemError("current state is not initialised");
+      case S_START: // Initial state
+         event = E_START;
          break;
-      case S_START:
-         break;
-      case S_INITIALISED:
-         evnt = E_CONTINUE;
+      case S_INITIALISED_SUBSYSTEMS:
+         event = E_CONTINUE;
          break;
       case S_WAIT_FOR_COINS:
-         DSPshow("Enter your coins please");
-         evnt = CNAcheckCoins();
-         break;
-      case S_DETECTED_10C:
-         evnt = CVMcheckCents(10);
+         event = CNAinputCoins();
          break;
       case S_DETECTED_20C:
-         evnt = CVMcheckCents(20);
+         event = CVMcheckEnoughCents(20);
+         break;
+      case S_DETECTED_50C:
+         event = CVMcheckEnoughCents(50);
          break;
       case S_DISPENSE:
-         evnt = CVMcheckChange();
+         event = CVMcheckChange();
          break;
       case S_WAIT_FOR_UPDATE_CHANGE:
          break;
+      default:
+         DSPshowSystemError("State panic: current state is not defined");
+         event = E_NO;
+         break;
    }
 
-   return evnt;
+   return event;
 }
 
-/// Uses the global variable #currentState to determine how to process the
-/// received #event.
-/// If an event is received that should not be in handled in the
-/// currentState this is considered as a system error.
-/// The switch statements use the default case to show an appropriate
-/// message to the display. It is necessary to give in all default cases
-/// the nextState an appropriate value to avoid undefined behaviour. 
-/// \post Updated currentState by nextSate.
 void eventHandler(event_e event)
 {
    state_e nextState = S_NO;
@@ -76,49 +57,59 @@ void eventHandler(event_e event)
    switch (currentState)
    {
       case S_START:
-         event = CVMinitialise();
-         nextState = S_INITIALISED;
+         switch (event)
+         {
+            case E_START:
+               CVMinitialiseSubSystems();
+               nextState = S_INITIALISED_SUBSYSTEMS;
+               break;
+            default:
+               DSPshowSystemError(
+                  "State panic: state S_START received unknown event");
+               exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+         }
          break;
 
-      case S_INITIALISED:
+      case S_INITIALISED_SUBSYSTEMS:
          insertedMoney = 0;
          priceCola = 125;
          change = 0;
          availableChange = 20;
-         event = E_CONTINUE;
-         nextState = S_WAIT_FOR_COINS;
+         switch (event)
+         {
+            case E_CONTINUE:
+               // Check condition for state transition
+               if (getSystemErrorBit(ERR_INIT_CNA) ||
+                   getSystemErrorBit(ERR_INIT_CHD))
+               {
+                  CVMshutdownSubSystems();
+                  exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+               }
+               else
+               {
+                  nextState = S_WAIT_FOR_COINS;
+               }
+               break;
+            default:
+               // Ignore all unknown events
+               nextState = S_WAIT_FOR_COINS;
+               break;
+         }
          break;
 
       case S_WAIT_FOR_COINS:
          switch (event)
          {
-            case E_10C:
-               nextState = S_DETECTED_10C;
-               break;
             case E_20C:
                nextState = S_DETECTED_20C;
                break;
-            default:
-               DSPshowSystemError(
-                  "S_WAIT_FOR_COINS received event "
-                  "not handled");
-               nextState = S_WAIT_FOR_COINS;
-         }
-         break;
-
-      case S_DETECTED_10C:
-         switch (event)
-         {
-            case E_NOT_ENOUGH:
-               nextState = S_WAIT_FOR_COINS;
-               break;
-            case E_ENOUGH:
-               nextState = S_DISPENSE;
+            case E_50C:
+               nextState = S_DETECTED_50C;
                break;
             default:
                DSPshowSystemError(
-                  "S_DETECTED_10C received event "
-                  "not handled");
+                  "State panic: state S_WAIT_FOR_COINS"
+                  "received unknown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -131,12 +122,31 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
-               nextState = S_DISPENSE;
+               CLDdispenseCola();
+               CHDdispenseChange(change);
+               nextState = S_WAIT_FOR_COINS;
                break;
             default:
                DSPshowSystemError(
-                  "S_DETECTED_20C received event "
-                  "not handled");
+                  "State S_DETECTED_20C received unknown event");
+               nextState = S_WAIT_FOR_COINS;
+               break;
+         }
+         break;
+
+      case S_DETECTED_50C:
+         switch (event)
+         {
+            case E_NOT_ENOUGH:
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            case E_ENOUGH:
+               CLDdispenseCola();
+               CHDdispenseChange(change);
+               nextState = S_DISPENSE;
+               break;
+            default:
+               DSPshowSystemError("State S_DETECTED_50C received unkown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -146,72 +156,71 @@ void eventHandler(event_e event)
          switch (event)
          {
             case E_NO_CHANGE_DISPENSE:
-               DSPshow("Sorry, no change available");
+               DSPshow("Sorry, no change available", 5);
                CHDdispenseChange(insertedMoney);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_UPDATE_CHANGE;
                break;
             case E_CHANGE_DISPENSE:
-               DSPshow("Please take your cola");
+               DSPshow("Please take your cola", 5);
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
-               DSPshowSystemError("S_DISPENSE received an unknown event");
+               DSPshowSystemError(
+                  "S_DISPENSE received received event "
+                  "not handled");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
          break;
 
       case S_WAIT_FOR_UPDATE_CHANGE:
-         DSPshow("Ask administrator to fill change storage ... done");
+         DSPshow("Ask administrator to fill change storage ... done", 5);
          availableChange = 20;
          nextState = S_WAIT_FOR_COINS;
          break;
 
       default:
-         DSPshowSystemError("CVM in unknown current state");
-         nextState = S_INITIALISED;
+         DSPshowSystemError("State panic: CVM is in unknown current state");
+         nextState = S_INITIALISED_SUBSYSTEMS;
          break;
    }
    currentState = nextState;
 }
 
-//------------------------------------------- CVM functions executed in FSM
-
-/// Initialises all subsystems (devices) and puts an initial text to the
-/// display.
-/// Error conditions of initialised subsystems are ignored.
-/// For that reason E_NO is returned.
-/// \todo Handle error conditions generated by the initialisation of every
-/// subsystem in an error handling state. All subsystem initialisation
-/// functions should return an event about the initialisation result (error
-/// condition).
-event_e CVMinitialise(void)
+void CVMinitialiseSubSystems(void)
 {
    DSPinitialise();
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();
-   DSPshow("----------------------- " APP " " VERSION
-           " ---------------------");
-
-   return E_NO;
 }
 
-event_e CVMcheckCents(int coinValue)
+void CVMshutdownSubSystems(void)
 {
+   DSPdebugSystemInfo("CVM shuts down!!\n\n");
+}
+
+event_e CVMcheckEnoughCents(int coinValue)
+{
+   switch (coinValue)
+   {
+      case 20:
+         DSPshow("     20C", 5);
+         break;
+      case 50:
+         DSPshow("     50C", 5);
+         break;
+   }
    insertedMoney += coinValue;
    if (insertedMoney >= priceCola)
    {
       return E_ENOUGH;
    }
-   else
-   {
-      return E_NOT_ENOUGH;
-   }
+   return E_NOT_ENOUGH;
 }
 
 event_e CVMcheckChange(void)

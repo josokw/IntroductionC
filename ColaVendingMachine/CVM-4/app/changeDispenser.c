@@ -1,5 +1,9 @@
-#include "display.h"
 #include "changeDispenser.h"
+#include "display.h"
+#include "keyboard.h"
+#include "systemErrors.h"
+#include "TUI.h"
+
 #include <stdio.h>
 
 //------------------------------------------------------------- CHange Dispenser
@@ -7,13 +11,17 @@
 void CHDinitialise(void)
 {
    DSPdebugSystemInfo("Change Dispenser: initialised");
+   if (TUIsimulationSystemInputYN("Selftest Change Dispenser: init error"))
+   {
+      setSystemErrorBit(ERR_INIT_CHD);
+      DSPshowDisplay();
+   }
 }
 
 void CHDdispenseChange(int change)
 {
-   char info[DISPLAY_SIZE];
-   sprintf(info, "%s%d",
-           "Change Dispenser: dispensed change = ",
-           change);
+   char info[100];
+
+   snprintf(info, 100, "%s%d", "Change Dispenser: dispensed change = ", change);
    DSPdebugSystemInfo(info);
 }
