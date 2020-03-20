@@ -17,14 +17,14 @@ The arrows are code dependency relations (uses relations).
 In C code these are the \#include dependencies.
 
 \startuml{architecture-0.png} "Architecture subsystems view" width=5cm
-!include ColaVendingMachine-1-layer.puml
+!include ColaVendingMachine-layer.puml
 \enduml
 
 The Hardware IO in the *HAL* layer is not implemented.
 Input and output is simulated by user keyboard input and screen output (laptop).
 
 \startuml{architecture-1.png} "Architecture subsystems view" width=5cm
-!include ColaVendingMachine-1-layer-simulation.puml
+!include ColaVendingMachine-layer-simulation.puml
 \enduml
 
 \section secState State machine view
@@ -48,7 +48,7 @@ State transition notation:
 - all the names in the diagrams should be used in the C code.
 
 \startuml{fsm-0.png} "State machine view" width=5cm
-!include ColaVendingMachine-1-fsm.puml
+!include ColaVendingMachine-fsm.puml
 \enduml
 
 A state chart is not a flowdiagram!

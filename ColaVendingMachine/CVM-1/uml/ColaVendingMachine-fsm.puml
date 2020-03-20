@@ -2,7 +2,7 @@
 
 hide empty description
 
-title State chart (FSM) Cola Vending Machine\n
+title CVM-1\nState chart (FSM)\n
 
 [*] --> InitialisedSubSystems : E_START / CVMinitialiseSubSystems()
 InitialisedSubSystems : insertedMoney = 0
