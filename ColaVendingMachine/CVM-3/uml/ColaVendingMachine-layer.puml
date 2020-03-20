@@ -1,6 +1,6 @@
 @startuml
 
-title CVM layered architecture - 3 -
+title CVM-3\nLayered architecture\n
 
 package "User Interface Layer" {
     [Display]
