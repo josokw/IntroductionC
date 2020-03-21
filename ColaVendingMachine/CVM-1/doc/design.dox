@@ -25,6 +25,7 @@ A CVM device has several *subsystems* (software API of hardware):
 
 - TUI *Textual User Interface* (terminal user interface), 
   uses the Display and Keyboard API
+  - void TUIinitialise(void);
   - int TUIsimulationSystemInputYN(const char questionText[]);
   - char TUIsimulationSystemInputChar(const char text[], const char chrs[]);
   - int TUIsimulationSystemInputInteger(const char text[], int min, int max);
