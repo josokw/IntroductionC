@@ -16,12 +16,6 @@ Press the green button down left to the editor for compiling the code project.
 
 Start the CVM application as follows: ...
 
-The next console will show up:
-
-\image html CVMstart-1.png "Console output after starting"
-Press \<Enter\>:
-\image html CVMstart-2.png "Console after pressing <Enter>"
-
 \todo Write a complete user manual.
 
 */
