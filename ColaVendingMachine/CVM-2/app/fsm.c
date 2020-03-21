@@ -68,7 +68,8 @@ void eventHandler(event_e event)
       case S_INITIALISED_SUBSYSTEMS:
          insertedMoney = 0;
          priceCola = 125;
-         change = 50;
+         change = 0;
+
          switch (event)
          {
             case E_CONTINUE:

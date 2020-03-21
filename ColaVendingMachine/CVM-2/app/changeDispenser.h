@@ -6,7 +6,6 @@
 #define MAX_AVAILABLE_CHANGE 1000
 
 /// Initialises the Change Dispenser (CHD) subsystem and executes a selftest.
-/// Asks for initial value of availbale change.
 void CHDinitialise(void);
 
 /// Gets available change.
