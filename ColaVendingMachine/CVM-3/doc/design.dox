@@ -33,6 +33,8 @@ A CVM device has several *subsystems* (software API of hardware):
 
 - Cola Dispenser
 
+- Change Dispenser
+
 - FSM state machine for controlling the CVM, is executed by main()
   - event_e generateEvent(void);
   - void eventHandler(event_e currentEvent);
