@@ -1,7 +1,8 @@
 #include "fsm.h"
+#include "TUI.h"
+#include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
-#include "changeDispenser.h"
 #include "display.h"
 #include "states.h"
 #include "systemErrors.h"
@@ -12,7 +13,7 @@
 static state_e currentState = S_START;
 static int insertedMoney = 0;
 static int priceCola = 0;
-static int change = 20;
+static int change = 0;
 
 event_e generateEvent(void)
 {
@@ -67,6 +68,7 @@ void eventHandler(event_e event)
       case S_INITIALISED_SUBSYSTEMS:
          insertedMoney = 0;
          priceCola = 125;
+         change = 50;
          switch (event)
          {
             case E_CONTINUE:
@@ -113,8 +115,10 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
+               change = insertedMoney - priceCola;
                CLDdispenseCola();
                CHDdispenseChange(change);
+               insertedMoney = 0;
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
@@ -132,8 +136,10 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
+               change = insertedMoney - priceCola;
                CLDdispenseCola();
                CHDdispenseChange(change);
+               insertedMoney = 0;
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
@@ -153,7 +159,7 @@ void eventHandler(event_e event)
 
 void CVMinitialiseSubSystems(void)
 {
-   DSPinitialise();
+   TUIinitialise();
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();

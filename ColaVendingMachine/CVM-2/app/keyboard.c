@@ -9,7 +9,6 @@
 void KYBinitialise(void)
 {
    DSPdebugSystemInfo("Keyboard: initialised");
-   KYBclear();
 }
 
 void KYBclear(void)

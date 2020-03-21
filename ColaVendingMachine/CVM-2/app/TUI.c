@@ -1,9 +1,17 @@
 #include "TUI.h"
+#include "display.h"
 #include "keyboard.h"
 
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+
+void TUIinitialise(void)
+{
+   DSPinitialise();
+   KYBinitialise();
+   DSPdebugSystemInfo("TUI: initialised");
+}
 
 int TUIsimulationSystemInputYN(const char questionText[])
 {
