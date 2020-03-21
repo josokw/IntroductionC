@@ -6,12 +6,39 @@
 
 A CVM device has several *subsystems* (software API of hardware):
 - Display
+  - void DSPinitialise(void);
+  - void DSPclear(void);
+  - void DSPclearLine(int row);
+  - void DSPshowDisplay(void);
+  - void DSPshow(const char text[], int row);
+  - void DSPshowDelete(const char text[], int row);
+  - void DSPdebugSystemInfo(const char text[]);
+  - void DSPsimulationSystemInfo(const char text[]);
+  - void DSPshowSystemError(const char text[]);
+
 - Keyboard
+  - void KYBinitialise(void);
+  - void KYBclear(void);
+  - char KYBgetchar(void);
+  - int KYBgetint(int ifWrongValue);
+  - double KYBgetdouble(double ifWrongValue);
+
 - TUI *Textual User Interface* (terminal user interface), 
   uses the Display and Keyboard API
+  - int TUIsimulationSystemInputYN(const char questionText[]);
+  - char TUIsimulationSystemInputChar(const char text[], const char chrs[]);
+  - int TUIsimulationSystemInputInteger(const char text[], int min, int max);
+
 - Coin Acceptor
+
 - Cola Dispenser
+
 - FSM state machine for controlling the CVM, is executed by main()
+  - event_e generateEvent(void);
+  - void eventHandler(event_e currentEvent);
+  - void CVMinitialiseSubSystems(void);
+  - void CVMshutdownSubSystems(void);
+  - event_e CVMcheckEnoughCents(int coinValue);
 
 The arrows are code dependency relations (uses relations).
 In C code these are the \#include dependencies.
@@ -35,7 +62,7 @@ State transition notation:
 \endverbatim
 
 - if an event occurs and the condition is satisfied, 
-  then the action will be executed and the state transion will occur.
+  then the action will be executed and the state transition will occur.
 - event names are in uppercase, prefixed by **E_**.
 - the action is the name of one or more (short) C functions without parameters 
   or only the important ones, prefixed by the abbreviated name of the related 
@@ -44,7 +71,9 @@ State transition notation:
     - CVMinitialiseSubSystems() 
     - CVMshutdownSubSystems()
     - CVMcheckChange()
+  - CoLa Dispenser
     - CLDdispenseCola()
+  - CHange Dispenser
     - CHDdispenseChange()
 - all the names in the diagrams should be used in the C code.
 
