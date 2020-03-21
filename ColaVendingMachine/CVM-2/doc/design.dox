@@ -70,6 +70,7 @@ State transition notation:
   - FSM of the Cola Vending Machine: 
     - CVMinitialiseSubSystems() 
     - CVMshutdownSubSystems()
+    - CVMcheckChange()
   - CoLa Dispenser
     - CLDdispenseCola()
   - CHange Dispenser
