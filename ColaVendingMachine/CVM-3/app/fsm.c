@@ -1,4 +1,5 @@
 #include "fsm.h"
+#include "TUI.h"
 #include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
@@ -8,12 +9,13 @@
 
 #include <stdlib.h>
 
+#define REFILL_CHANGE_ADMIN 100
+
 // static will limit the scope of global vars to this file
 static state_e currentState = S_START;
 static int insertedMoney = 0;
-static int priceCola = 125;
-static int change = 20;
-static int availableChange = 30;
+static int priceCola = 0;
+static int change = 0;
 
 event_e generateEvent(void)
 {
@@ -73,11 +75,15 @@ void eventHandler(event_e event)
       case S_INITIALISED_SUBSYSTEMS:
          insertedMoney = 0;
          priceCola = 125;
+         change = 0;
+
          switch (event)
          {
             case E_CONTINUE:
                // Check condition for state transition
-               if (getSystemErrorBit(ERR_INIT_CNA))
+               if (getSystemErrorBit(ERR_INIT_CNA) ||
+                   getSystemErrorBit(ERR_INIT_CHD) ||
+                   getSystemErrorBit(ERR_INIT_CLD))
                {
                   CVMshutdownSubSystems();
                   exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -119,9 +125,9 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
-               CLDdispenseCola();
-               CHDdispenseChange(change);
-               nextState = S_WAIT_FOR_COINS;
+               change = insertedMoney - priceCola;
+               insertedMoney = 0;
+               nextState = S_DISPENSE;
                break;
             default:
                DSPshowSystemError(
@@ -138,8 +144,7 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
-               CLDdispenseCola();
-               CHDdispenseChange(change);
+               change = insertedMoney - priceCola;
                nextState = S_DISPENSE;
                break;
             default:
@@ -176,7 +181,7 @@ void eventHandler(event_e event)
 
       case S_WAIT_FOR_UPDATE_CHANGE:
          DSPshow("Ask administrator to fill change storage ... done", 5);
-         availableChange = 20;
+         CHDsetAvailableChange(REFILL_CHANGE_ADMIN);
          nextState = S_WAIT_FOR_COINS;
          break;
 
@@ -190,7 +195,7 @@ void eventHandler(event_e event)
 
 void CVMinitialiseSubSystems(void)
 {
-   DSPinitialise();
+   TUIinitialise();
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();
@@ -223,9 +228,9 @@ event_e CVMcheckEnoughCents(int coinValue)
 event_e CVMcheckChange(void)
 {
    change = insertedMoney - priceCola;
-   if (availableChange >= change)
+   if (CHDgetAvailableChange() >= change)
    {
-      availableChange -= change;
+      CHDsetAvailableChange(CHDgetAvailableChange() - change);
       return E_CHANGE_DISPENSE;
    }
    return E_NO_CHANGE_DISPENSE;

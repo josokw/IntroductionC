@@ -1,6 +1,9 @@
 #ifndef TUI_H
 #define TUI_H
 
+/// Initialises the Textual User Interface (TUI) subsystem.
+void TUIinitialise(void);
+
 /// Shows questionText extended with '[y/n]'.
 /// User can enter Y by only pressing \<enter\>.
 /// \return boolean value, equals true if Y has been chosen.
