@@ -117,6 +117,7 @@ void eventHandler(event_e event)
                break;
             case E_ENOUGH:
                change = insertedMoney - priceCola;
+               DSPshowDelete("Please, take your cola", 3);
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
@@ -138,6 +139,7 @@ void eventHandler(event_e event)
                break;
             case E_ENOUGH:
                change = insertedMoney - priceCola;
+               DSPshowDelete("Please, take your cola", 3);
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
