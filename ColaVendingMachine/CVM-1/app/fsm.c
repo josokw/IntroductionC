@@ -112,6 +112,7 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
+               DSPshowDelete("Please, take your cola", 3);
                CLDdispenseCola();
                nextState = S_WAIT_FOR_COINS;
                break;
@@ -130,6 +131,7 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             case E_ENOUGH:
+               DSPshowDelete("Please, take your cola", 3);
                CLDdispenseCola();
                nextState = S_WAIT_FOR_COINS;
                break;
