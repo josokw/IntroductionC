@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#define N_RND 5
+#define N_RND 7
 
 int main(void)
 {
@@ -14,6 +14,15 @@ int main(void)
    printf("INFO: prng() returns a value in the range [0,%ld]\n", PRNG_MAX);
 
    printf("\n-- seed = 1 (default value)\n");
+   for (int count = 0; count < N_RND; count++)
+   {
+      rnd = prng();
+      printf("rnd = %d\n", rnd);
+   }
+
+   setSeed(seed);
+   printf("\n-- seed = %lu\n", seed);
+
    for (int count = 0; count < N_RND; count++)
    {
       rnd = prng();
