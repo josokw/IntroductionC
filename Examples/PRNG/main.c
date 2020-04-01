@@ -11,12 +11,12 @@ int main(void)
    unsigned long int seed = 123;
    int rnd = 0;
 
-   printf("INFO: prng() returns a value in the range [0,%ld]\n", PRNG_MAX);
+   printf("INFO: randomLCG() returns a value in the range [0,%ld]\n", PRNG_MAX);
 
    printf("\n-- seed = 1 (default value)\n");
    for (int count = 0; count < N_RND; count++)
    {
-      rnd = prng();
+      rnd = randomLCG();
       printf("rnd = %d\n", rnd);
    }
 
@@ -25,7 +25,7 @@ int main(void)
 
    for (int count = 0; count < N_RND; count++)
    {
-      rnd = prng();
+      rnd = randomLCG();
       printf("rnd = %d\n", rnd);
    }
 
@@ -34,7 +34,7 @@ int main(void)
 
    for (int count = 0; count < N_RND; count++)
    {
-      rnd = prng();
+      rnd = randomLCG();
       printf("rnd = %d\n", rnd);
    }
 
