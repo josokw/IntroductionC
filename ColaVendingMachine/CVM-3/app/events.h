@@ -13,4 +13,6 @@ typedef enum {
    E_NO_CHANGE_DISPENSE ///< No dispense of change possible
 } event_e;
 
+const char* eventText(event_e);
+
 #endif
