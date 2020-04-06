@@ -11,4 +11,6 @@ typedef enum {
    E_ENOUGH      ///< Enough coins inserted
 } event_e;
 
+const char* eventText(event_e);
+
 #endif

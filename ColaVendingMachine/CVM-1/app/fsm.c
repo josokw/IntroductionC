@@ -3,6 +3,7 @@
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
+#include "events.h"
 #include "states.h"
 #include "systemErrors.h"
 
@@ -39,6 +40,8 @@ event_e generateEvent(void)
          event = E_NO;
          break;
    }
+
+   DSPdebugSystemInfo(eventText(event));
 
    return event;
 }
