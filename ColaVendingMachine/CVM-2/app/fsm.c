@@ -42,6 +42,8 @@ event_e generateEvent(void)
          break;
    }
 
+   DSPdebugSystemInfo(eventText(event));
+
    return event;
 }
 

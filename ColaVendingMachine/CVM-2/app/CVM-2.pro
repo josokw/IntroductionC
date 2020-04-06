@@ -12,7 +12,8 @@ SOURCES += main.c \
     fsm.c \
     display.c \
     keyboard.c \
-    systemErrors.c
+    systemErrors.c \
+    events.c
 
 HEADERS += \
     TUI.h \
