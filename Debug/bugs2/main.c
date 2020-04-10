@@ -25,18 +25,23 @@ void reverseString(char text[]);
 
 int main(void)
 {
-   char text[MAXCHARS] = "abcdef";
+   char text1[MAXCHARS] = "abcdef";
+   char text2[MAXCHARS] = "123";
 
    puts(
       "Program bugs2 started with testing "
       "-------------------------------\n");
 
-   printf("countChar(\"abbccc\", 'a') = %d\n", countChar("abbccc", 'c'));
+   printf("countChar(\"abbccc\", 'a') = %d\n", countChar("abbccc", 'a'));
    printf("countChar(\"abbccc\", 'x') = %d\n\n", countChar("abbccc", 'x'));
 
-   printf("String text = %s\n", text);
-   reverseString(text);
-   printf("reverseString(text) = %s\n\n", text);
+   printf("String text1 = %s\n", text1);
+   reverseString(text1);
+   printf("reverseString(text1) = %s\n\n", text1);
+
+   printf("String text2 = %s\n", text2);
+   reverseString(text2);
+   printf("reverseString(text2) = %s\n\n", text2);
 
    puts(
       "\nProgram ready "
@@ -65,13 +70,13 @@ int countChar(const char text[], char c)
 
 void reverseString(const char text[])
 {
-   size_t begin = 0;
+   size_t begin = 1;
    size_t end = strlen(text);
-   char temp; /* temp: temporary */
 
    while (begin <= end)
    {
-      temp = text[end];
+      char temp = text[end]; /* temp: temporary */
+
       text[end] = text[begin];
       text[begin] = temp;
       begin++;
