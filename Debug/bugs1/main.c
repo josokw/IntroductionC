@@ -36,6 +36,7 @@ int main(void)
 {
    int data1[7] = {1, 2, 150, -10, 0, 20, -50};
    int data2[6] = {0, 1, 0, 0, 1, 1};
+   int data3[6] = {1, 0, 0, 1, 1, 0};
    int i = 0;
 
    puts("Program debug1 started with testing ------------------------------\n");
@@ -58,11 +59,19 @@ int main(void)
    }
    printf("\nfindMax(data2, 6) = %d\n\n", findMax(data2, 6));
 
+   printf("data3 = ");
+   for (i = 0; i < 6; i++)
+   {
+      printf("%d ", data3[i]);
+   }
+   printf("\nfindMax(data3, 6) = %d\n\n", findMax(data3, 6));
+
    printf("average3ints(1, 2, 3) = %lf\n", average3ints(1, 2, 3));
    printf("average3ints(-1, 2, -3) = %lf\n\n", average3ints(-1, 2, -3));
 
    printf("average(data1, 7) = %lf\n", average(data1, 6));
    printf("average(data2, 6) = %lf\n", average(data2, 6));
+   printf("average(data3, 6) = %lf\n", average(data3, 6));
    
    puts("\nProgram ready --------------------------------------------------\n");
 
