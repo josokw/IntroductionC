@@ -4,6 +4,7 @@
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
+#include "events.h"
 #include "states.h"
 #include "systemErrors.h"
 
@@ -42,7 +43,7 @@ event_e generateEvent(void)
          break;
    }
 
-   DSPdebugSystemInfo(eventText(event));
+   DSPdebugSystemInfo("Generated event: %s", eventText(event));
 
    return event;
 }
@@ -187,6 +188,7 @@ event_e CVMcheckEnoughCents(int coinValue)
          break;
    }
    insertedMoney += coinValue;
+   DSPdebugSystemInfo("CVM inserted money: %d", insertedMoney);
    if (insertedMoney >= priceCola)
    {
       return E_ENOUGH;
