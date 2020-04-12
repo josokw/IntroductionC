@@ -27,12 +27,18 @@ void DSPshow(const char text[], int row);
 void DSPshowDelete(const char text[], int row);
 
 /// Shows debug related message, below the display.
-void DSPdebugSystemInfo(const char text[]);
+/// Has printf() interface.
+void DSPdebugSystemInfo(const char fmt[], ...);
 
 /// Shows simulation related text, below the display.
-void DSPsimulationSystemInfo(const char text[]);
+/// Has printf() interface.
+void DSPsimulationSystemInfo(const char fmt[], ...);
 
-/// Shows error related text, below the display.
-void DSPshowSystemError(const char text[]);
+/// Shows system error related text, below the display.
+/// Has printf() interface.
+/// If a system error is detected, most of the time the system needs to
+/// shutdown (if still possible) or will run at some reduced level of
+/// performance (graceful degradation).
+void DSPshowSystemError(const char fmt[], ...);
 
 #endif
