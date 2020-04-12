@@ -2,6 +2,7 @@
 #include "appInfo.h"
 #include "systemErrors.h"
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -95,17 +96,32 @@ void DSPshowDelete(const char text[], int row)
    DSPshowDisplay();
 }
 
-void DSPdebugSystemInfo(const char text[])
+void DSPdebugSystemInfo(const char fmt[], ...)
 {
-   printf("\n-- DEBUG  %s   ", text);
+   va_list arg;
+
+   printf("\n-- DEBUG  ");
+   va_start(arg, fmt);
+   vfprintf(stdout, fmt, arg);
+   va_end(arg);
 }
 
-void DSPsimulationSystemInfo(const char text[])
+void DSPsimulationSystemInfo(const char fmt[], ...)
 {
-   printf("\n-- SIMULATION  %s   ", text);
+   va_list arg;
+
+   printf("\n-- SIMULATION  ");
+   va_start(arg, fmt);
+   vfprintf(stdout, fmt, arg);
+   va_end(arg);
 }
 
-void DSPshowSystemError(const char text[])
+void DSPshowSystemError(const char fmt[], ...)
 {
-   printf("\n** SYSTEM ERROR  %s   ", text);
+   va_list arg;
+
+   printf("\n-- SYSTEM ERROR  ");
+   va_start(arg, fmt);
+   vfprintf(stdout, fmt, arg);
+   va_end(arg);
 }

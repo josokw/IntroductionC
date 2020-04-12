@@ -36,10 +36,7 @@ void CHDsetAvailableChange(int avcg)
 
 void CHDdispenseChange(int change)
 {
-   char info[100];
-
-   snprintf(info, 100, "%s%d", "Change Dispenser: dispensed change = ", change);
-   DSPdebugSystemInfo(info);
+   DSPdebugSystemInfo("Change Dispenser: dispensed change = %d", change);
 
    DSPshowDelete("Please, take your change", 5);
 }

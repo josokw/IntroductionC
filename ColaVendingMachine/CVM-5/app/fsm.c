@@ -4,6 +4,7 @@
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
 #include "display.h"
+#include "events.h"
 #include "states.h"
 #include "systemErrors.h"
 
@@ -49,7 +50,7 @@ event_e generateEvent(void)
          break;
    }
 
-   DSPdebugSystemInfo(eventText(event));
+   DSPdebugSystemInfo("Generated event: %s", eventText(event));
 
    return event;
 }
@@ -133,7 +134,7 @@ void eventHandler(event_e event)
                break;
             default:
                DSPshowSystemError(
-                  "State S_DETECTED_20C received unknown event");
+                  "State panic: stae S_DETECTED_20C received unknown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -150,7 +151,8 @@ void eventHandler(event_e event)
                nextState = S_DISPENSE;
                break;
             default:
-               DSPshowSystemError("State S_DETECTED_50C received unkown event");
+               DSPshowSystemError(
+                  "State panic: state S_DETECTED_50C received unkown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -220,6 +222,7 @@ event_e CVMcheckEnoughCents(int coinValue)
          break;
    }
    insertedMoney += coinValue;
+   DSPdebugSystemInfo("CVM inserted money: %d", insertedMoney);
    if (insertedMoney >= priceCola)
    {
       return E_ENOUGH;
