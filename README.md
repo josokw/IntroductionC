@@ -10,3 +10,5 @@
   - CVM-5: **CVM-5.8** under construction, **experimental**
 
 - Development subdirectory structure for applications: app, doc and uml.
+  
+- Older versions are still available in releases: CVM-4 and CVM-4.1
