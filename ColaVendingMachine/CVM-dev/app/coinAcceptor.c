@@ -1,6 +1,6 @@
 #include "coinAcceptor.h"
 #include "TUI.h"
-#include "display.h"
+#include "devConsole.h"
 #include "keyboard.h"
 #include "systemErrors.h"
 
@@ -10,7 +10,7 @@
 
 void CNAinitialise(void)
 {
-   DSPdebugSystemInfo("Coin Acceptor: initialised");
+   DCSdebugSystemInfo("Coin Acceptor: initialised");
    if (TUIsimulationSystemInputYN("Selftest Coin Acceptor: init error"))
    {
       setSystemErrorBit(ERR_INIT_CNA);

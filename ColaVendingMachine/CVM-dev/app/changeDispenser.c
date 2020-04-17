@@ -12,7 +12,7 @@ static int availableChange = MAX_AVAILABLE_CHANGE;
 
 void CHDinitialise(void)
 {
-   DSPdebugSystemInfo("Change Dispenser: initialised");
+   DCSdebugSystemInfo("Change Dispenser: initialised");
 
    if (TUIsimulationSystemInputYN("Selftest Change Dispenser: init error"))
    {
@@ -36,7 +36,7 @@ void CHDsetAvailableChange(int avcg)
 
 void CHDdispenseChange(int change)
 {
-   DSPdebugSystemInfo("Change Dispenser: dispensed change = %d", change);
+   DCSdebugSystemInfo("Change Dispenser: dispensed change = %d", change);
 
    DSPshowDelete("Please, take your change", 5);
 }

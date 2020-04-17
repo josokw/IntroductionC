@@ -1,5 +1,6 @@
 #include "display.h"
 #include "appInfo.h"
+#include "devConsole.h"
 #include "systemErrors.h"
 
 #include <stdarg.h>
@@ -30,7 +31,7 @@ void DSPinitialise(void)
    strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
 
    DSPshowDisplay();
-   DSPdebugSystemInfo("Display: initialised");
+   DCSdebugSystemInfo("Display: initialised");
 }
 
 void DSPclear(void)
@@ -77,7 +78,7 @@ void DSPshowDisplay(void)
 
 void DSPshow(const char text[], int row)
 {
-   DSPdebugSystemInfo("** Press <Enter>, for update display **");
+   DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    DSPclearLine(row);
    strncpy(&display[row][2], text, DSP_WIDTH - 2);
@@ -86,7 +87,7 @@ void DSPshow(const char text[], int row)
 
 void DSPshowDelete(const char text[], int row)
 {
-   DSPdebugSystemInfo("** Press <Enter>, for update display **");
+   DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    for (int r = row; r < DSP_HEIGHT - 1; r++)
    {
@@ -94,34 +95,4 @@ void DSPshowDelete(const char text[], int row)
    }
    strncpy(&display[row][2], text, DSP_WIDTH - 2);
    DSPshowDisplay();
-}
-
-void DSPdebugSystemInfo(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- DEBUG  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
-}
-
-void DSPsimulationSystemInfo(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- SIMULATION  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
-}
-
-void DSPshowSystemError(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- SYSTEM ERROR  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
 }

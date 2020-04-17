@@ -8,6 +8,7 @@ SOURCES += main.c \
     TUI.c \
     fsm.c \
     display.c \
+    devConsole.c \
     coinAcceptor.c \
     changeDispenser.c \
     colaDispenser.c \
@@ -20,6 +21,7 @@ HEADERS += \
     appInfo.h \
     fsm.h \
     display.h \
+    devConsole.h \
     coinAcceptor.h \
     changeDispenser.h \
     events.h \
