@@ -4,10 +4,24 @@ CONFIG -= app_bundle
 CONFIG -= qt
 CONFIG += c11
 
-SOURCES += \
-   main.c \
-   subsystems.c
+SOURCES += main.c \
+    TUI.c \
+    coinAcceptor.c \
+    colaDispenser.c \
+    fsm.c \
+    display.c \
+    keyboard.c \
+    systemErrors.c \
+    events.c
 
 HEADERS += \
-   fsm.h \
-   subsystems.h
+    TUI.h \
+    appInfo.h \
+    coinAcceptor.h \
+    colaDispenser.h \
+    fsm.h \
+    display.h \
+    events.h \
+    keyboard.h \
+    states.h \
+    systemErrors.h

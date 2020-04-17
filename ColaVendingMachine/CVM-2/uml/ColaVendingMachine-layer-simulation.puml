@@ -1,0 +1,38 @@
+@startuml
+
+title CVM-2\nlayered architecture\nSIMULATION\n
+
+package "User Interface Layer" {
+    [Display]
+    [Keyboard]
+    [TUI] #green
+}
+
+package "System Control Layer" {
+    [FSM] #red
+}
+
+package "Subsystems Layer" {
+    [Cola Dispenser]
+    [Coin Acceptor]
+}
+
+package "HAL simulation by user IO" {
+    [Display Simulation] #YellowGreen
+    [Keyboard Simulation] #YellowGreen
+}
+
+[FSM] -down-> [Coin Acceptor]
+[FSM] -down-> [Cola Dispenser]
+[FSM] -up-> [Display]
+[FSM] -up-> [Keyboard]
+[FSM] -up-> [TUI]
+[TUI] -down-> [Keyboard]
+[TUI] -down-> [Display]
+
+[Cola Dispenser] -down-> [Display Simulation]
+[Cola Dispenser] -down-> [Keyboard Simulation]
+[Coin Acceptor] -down-> [Display Simulation]
+[Coin Acceptor] -down-> [Keyboard Simulation]
+
+@enduml

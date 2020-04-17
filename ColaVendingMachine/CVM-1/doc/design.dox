@@ -1,0 +1,84 @@
+/*!
+
+\page secDesign Software design
+
+\section secArch Architecture subsystems view
+
+A CVM device has several *subsystems* (software API of hardware):
+- Display
+  - void DSPinitialise(void);
+  - void DSPclear(void);
+  - void DSPclearLine(int row);
+  - void DSPshowDisplay(void);
+  - void DSPshow(const char text[], int row);
+  - void DSPshowDelete(const char text[], int row);
+  - void DSPdebugSystemInfo(const char text[]);
+  - void DSPsimulationSystemInfo(const char text[]);
+  - void DSPshowSystemError(const char text[]);
+
+- Keyboard
+  - void KYBinitialise(void);
+  - void KYBclear(void);
+  - char KYBgetchar(void);
+  - int KYBgetint(int ifWrongValue);
+  - double KYBgetdouble(double ifWrongValue);
+
+- TUI *Textual User Interface* (terminal user interface), 
+  uses the Display and Keyboard API
+  - void TUIinitialise(void);
+  - int TUIsimulationSystemInputYN(const char questionText[]);
+  - char TUIsimulationSystemInputChar(const char text[], const char chrs[]);
+  - int TUIsimulationSystemInputInteger(const char text[], int min, int max);
+
+- Coin Acceptor
+
+- Cola Dispenser
+
+- FSM state machine for controlling the CVM, is executed by main()
+  - event_e generateEvent(void);
+  - void eventHandler(event_e currentEvent);
+  - void CVMinitialiseSubSystems(void);
+  - void CVMshutdownSubSystems(void);
+  - event_e CVMcheckEnoughCents(int coinValue);
+
+The arrows are code dependency relations (uses relations).
+In C code these are the \#include dependencies.
+
+\startuml{architecture-0.png} "Architecture subsystems view" width=5cm
+!include ColaVendingMachine-layer.puml
+\enduml
+
+The Hardware IO in the *HAL* layer is not implemented.
+Input and output is simulated by user keyboard input and screen output (laptop).
+
+\startuml{architecture-1.png} "Architecture subsystems view" width=5cm
+!include ColaVendingMachine-layer-simulation.puml
+\enduml
+
+\section secState State machine view
+
+State transition notation: 
+
+\verbatim event [condition] / action() 
+\endverbatim
+
+- if an event occurs and the condition is satisfied, 
+  then the action will be executed and the state transition will occur.
+- event names are in uppercase, prefixed by **E_**.
+- the action is the name of one or more (short) C functions without parameters 
+  or only the important ones, prefixed by the abbreviated name of the related 
+  subsystem.
+  - FSM of the Cola Vending Machine: 
+    - CVMinitialiseSubSystems() 
+    - CVMshutdownSubSystems()
+  - CoLa Dispenser
+    - CLDdispenseCola()
+- all the names in the diagrams should be used in the C code.
+
+\startuml{fsm-0.png} "State machine view" width=5cm
+!include ColaVendingMachine-fsm.puml
+\enduml
+
+A state chart is not a flowdiagram!
+
+*/
