@@ -34,7 +34,7 @@ double average(const int data[], int size);
 
 int main(void)
 {
-   int data1[7] = {1, 2, 150, -10, 0, 20, -50};
+   int data1[7] = {150, 2, 15, -10, 0, 20, -50};
    int data2[6] = {0, 1, 0, 0, 1, 1};
    int i = 0;
 
@@ -58,7 +58,7 @@ int main(void)
    }
    printf("\nfindMax(data2, 6) = %d\n\n", findMax(data2, 6));
 
-   printf("average3ints(1, 2, 3) = %lf\n", average3ints(1, 2, 3));
+   printf("average3ints(1, 2, 4) = %lf\n", average3ints(1, 2, 4));
    printf("average3ints(-1, 2, -3) = %lf\n\n", average3ints(-1, 2, -3));
 
    printf("average(data1, 7) = %lf\n", average(data1, 6));
@@ -87,7 +87,7 @@ int findMax(const int data[], int size)
    int max = INT_MIN;
    int i = 0;
 
-   for (i = 0; i <= size; i++)
+   for (i = 1; i <= size; i++)
    {
       max = maxOf(max, data[i]);
    }
