@@ -12,4 +12,6 @@ typedef enum {
    S_WAIT_FOR_UPDATE_CHANGE  ///< Wait for update change (simulation)
 } state_e;
 
+const char *stateText(state_e state);
+
 #endif
