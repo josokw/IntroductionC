@@ -23,5 +23,5 @@ const char *eventText(event_e event)
       case E_NO_CHANGE_DISPENSE:
          return "E_NO_CHANGE_DISPENSE";
    }
-   return "<not defined>";
+   return "<event not defined>";
 }
