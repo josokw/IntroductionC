@@ -13,6 +13,7 @@ SOURCES += main.c \
     colaDispenser.c \
     keyboard.c \
     systemErrors.c \
+    states.c \
     events.c
 
 HEADERS += \
