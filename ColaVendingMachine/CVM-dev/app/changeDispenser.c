@@ -1,5 +1,5 @@
 #include "changeDispenser.h"
-#include "TUI.h"
+#include "devConsole.h"
 #include "display.h"
 #include "keyboard.h"
 #include "systemErrors.h"
@@ -14,13 +14,13 @@ void CHDinitialise(void)
 {
    DCSdebugSystemInfo("Change Dispenser: initialised");
 
-   if (TUIsimulationSystemInputYN("Selftest Change Dispenser: init error"))
+   if (DCSsimulationSystemInputYN("Selftest Change Dispenser: init error"))
    {
       setSystemErrorBit(ERR_INIT_CHD);
       DSPshowDisplay();
    }
 
-   availableChange = TUIsimulationSystemInputInteger(
+   availableChange = DCSsimulationSystemInputInteger(
       "Initial value amount of change?", 0, MAX_AVAILABLE_CHANGE);
 }
 

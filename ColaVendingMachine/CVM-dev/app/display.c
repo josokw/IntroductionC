@@ -51,7 +51,7 @@ void DSPclear(void)
 
    if (error != 0)
    {
-      printf("\nERROR terminal command fails\n\n");
+      printf("\nERROR command for starting a terminal fails\n\n");
    }
 }
 
@@ -74,6 +74,7 @@ void DSPshowDisplay(void)
       printf("%s\n", display[row]);
    }
    DSPshowSystemErrorBits();
+   puts("\nDevelopment Console:");
 }
 
 void DSPshow(const char text[], int row)

@@ -1,5 +1,4 @@
 #include "fsm.h"
-#include "TUI.h"
 #include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
@@ -200,7 +199,7 @@ void eventHandler(event_e event)
 
 void CVMinitialiseSubSystems(void)
 {
-   TUIinitialise();
+   DCSinitialise();
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();
