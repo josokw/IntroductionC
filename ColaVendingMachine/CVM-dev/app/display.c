@@ -31,7 +31,7 @@ void DSPinitialise(void)
    strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
 
    DSPshowDisplay();
-   DCSdebugSystemInfo("Display: initialised");
+   DCSdebugSystemInfo("Display %dx%d: initialised", DSP_WIDTH, DSP_HEIGHT);
 }
 
 void DSPclear(void)
