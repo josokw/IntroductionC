@@ -205,7 +205,7 @@ void CVMinitialiseSubSystems(void)
    CLDinitialise();
    CHDinitialise();
 
-   DCSdebugSystemInfo("CVM current dir:\n   %s", getCurrentDir());
+   DCSdebugSystemInfo("%s() current dir:\n   %s", __func__, getCurrentDir());
 }
 
 void CVMshutdownSubSystems(void)
