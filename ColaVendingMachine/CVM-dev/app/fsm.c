@@ -5,6 +5,7 @@
 #include "devConsole.h"
 #include "display.h"
 #include "events.h"
+#include "files.h"
 #include "states.h"
 #include "systemErrors.h"
 
@@ -203,6 +204,8 @@ void CVMinitialiseSubSystems(void)
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();
+
+   DCSdebugSystemInfo("CVM current dir:\n   %s", getCurrentDir());
 }
 
 void CVMshutdownSubSystems(void)
