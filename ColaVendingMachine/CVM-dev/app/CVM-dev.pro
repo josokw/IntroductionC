@@ -8,6 +8,7 @@ SOURCES += main.c \
     fsm.c \
     display.c \
     devConsole.c \
+    files.c \
     coinAcceptor.c \
     changeDispenser.c \
     colaDispenser.c \
@@ -21,6 +22,7 @@ HEADERS += \
     fsm.h \
     display.h \
     devConsole.h \
+    files.h \
     coinAcceptor.h \
     changeDispenser.h \
     events.h \
