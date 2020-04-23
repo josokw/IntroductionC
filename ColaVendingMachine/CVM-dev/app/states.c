@@ -10,6 +10,8 @@ const char *stateText(state_e state)
          return "S_START";
       case S_INITIALISED_SUBSYSTEMS:
          return "S_INITIALISED_SUBSYSTEMS";
+      case S_CONFIGURE: 
+         return "S_CONFIGURE";
       case S_WAIT_FOR_COINS:
          return "S_WAIT_FOR_COINS";
       case S_DETECTED_20C:

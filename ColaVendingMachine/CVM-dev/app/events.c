@@ -8,6 +8,10 @@ const char *eventText(event_e event)
          return "E_NO";
       case E_START:
          return "E_START";
+      case E_CONFIG:
+         return "E_CONFIG";
+      case E_CONFIG_READY:
+         return "E_CONFIG_READY";
       case E_CONTINUE:
          return "E_CONTINUE";
       case E_20C:

@@ -31,6 +31,9 @@ event_e generateEvent(void)
       case S_INITIALISED_SUBSYSTEMS:
          event = E_CONTINUE;
          break;
+      case S_CONFIGURE:
+         event = CVMconfig();
+         break;
       case S_WAIT_FOR_COINS:
          event = CNAinputCoins();
          break;
@@ -51,7 +54,8 @@ event_e generateEvent(void)
          break;
    }
 
-   DCSdebugSystemInfo("Generated event: %s", eventText(event));
+   DCSdebugSystemInfo("State %s generated event: %s", stateText(currentState),
+                      eventText(event));
 
    return event;
 }
@@ -94,11 +98,29 @@ void eventHandler(event_e event)
                }
                else
                {
-                  nextState = S_WAIT_FOR_COINS;
+                  nextState = S_CONFIGURE;
                }
                break;
             default:
                // Ignore all unknown events
+               nextState = S_CONFIGURE;
+               break;
+         }
+         break;
+
+      case S_CONFIGURE:
+         switch (event)
+         {
+            case E_CONFIG:
+               nextState = S_CONFIGURE;
+               break;
+            case E_CONFIG_READY:
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            default:
+               DCSshowSystemError(
+                  "State panic: state S_CONFIGURE "
+                  "received unknown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -115,8 +137,9 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_WAIT_FOR_COINS"
-                  "received unknown event");
+                  "State panic: state S_WAIT_FOR_COINS "
+                  "received unhandeld event %s",
+                  eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -211,6 +234,13 @@ void CVMinitialiseSubSystems(void)
 void CVMshutdownSubSystems(void)
 {
    DCSdebugSystemInfo("CVM shuts down!!\n\n");
+}
+
+event_e CVMconfig(void)
+{
+   DCSdebugSystemInfo("CVM configure");
+
+   return E_CONFIG_READY;
 }
 
 event_e CVMcheckEnoughCents(int coinValue)
