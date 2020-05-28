@@ -30,3 +30,8 @@ HEADERS += \
     keyboard.h \
     states.h \
     systemErrors.h
+
+DISTFILES += \
+   ../doc/implementation.dox \
+   ../doc/mainpage.dox \
+   ../doc/design.dox
