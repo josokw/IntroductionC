@@ -75,7 +75,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_START received unknown event");
+                  "State panic: state S_START received unknown event %s",
+                  eventText(event));
                exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
          }
          break;
@@ -119,8 +120,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_CONFIGURE "
-                  "received unknown event");
+                  "State panic: state S_CONFIGURE received unhandeld event %s",
+                  eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -158,7 +159,7 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: stae S_DETECTED_20C received unknown event");
+                  "State panic: state S_DETECTED_20C received unknown event");
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -175,8 +176,8 @@ void eventHandler(event_e event)
                nextState = S_DISPENSE;
                break;
             default:
-               DCSshowSystemError(
-                  "State panic: state S_DETECTED_50C received unkown event");
+               DCSshowSystemError("State panic: state %s received unkown event",
+                                  stateText(currentState));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -199,16 +200,17 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
-               DCSshowSystemError(
-                  "S_DISPENSE received received event "
-                  "not handled");
+               DCSshowSystemError("S_DISPENSE received event %s not handled",
+                                  eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
          break;
 
       case S_WAIT_FOR_UPDATE_CHANGE:
-         DSPshow(5, "Ask administrator to fill change storage ... done");
+         DSPshow(
+            5, "Ask administrator to fill change storage with %d Euro ... done",
+            REFILL_CHANGE_ADMIN);
          CHDsetAvailableChange(REFILL_CHANGE_ADMIN);
          nextState = S_WAIT_FOR_COINS;
          break;
@@ -245,15 +247,7 @@ event_e CVMconfig(void)
 
 event_e CVMcheckEnoughCents(int coinValue)
 {
-   switch (coinValue)
-   {
-      case 20:
-         DSPshow(5, "     20C");
-         break;
-      case 50:
-         DSPshow(5, "     50C");
-         break;
-   }
+   DSPshow(5, "       %dC", coinValue);
    insertedMoney += coinValue;
    DCSdebugSystemInfo("CVM inserted money: %d", insertedMoney);
    if (insertedMoney >= priceCola)
