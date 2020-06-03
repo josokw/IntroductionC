@@ -77,12 +77,18 @@ void DSPshowDisplay(void)
    puts("\nDevelopment Console:");
 }
 
-void DSPshow(const char text[], int row)
+void DSPshow(int row, const char fmt[], ...)
 {
+   va_list arg;
+
    DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    DSPclearLine(row);
-   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+
+   va_start(arg, fmt);
+   vsnprintf(&display[row][2], DSP_WIDTH - 3, fmt, arg); 
+   va_end(arg);
+
    DSPshowDisplay();
 }
 

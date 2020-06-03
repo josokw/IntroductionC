@@ -21,7 +21,7 @@ void DSPshowDisplay(void);
 /// Updates one line in the display.
 /// \param text update text
 /// \param row display row index
-void DSPshow(const char text[], int row);
+void DSPshow(int row,  const char fmt[], ...);
 
 /// Add new text to display in row, deletes all subsequent lines.
 void DSPshowDelete(const char text[], int row);

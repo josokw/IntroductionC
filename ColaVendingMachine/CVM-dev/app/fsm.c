@@ -186,13 +186,13 @@ void eventHandler(event_e event)
          switch (event)
          {
             case E_NO_CHANGE_DISPENSE:
-               DSPshow("Sorry, no change available", 5);
+               DSPshow(5, "Sorry, no change available");
                CHDdispenseChange(insertedMoney);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_UPDATE_CHANGE;
                break;
             case E_CHANGE_DISPENSE:
-               DSPshow("Please take your cola", 5);
+               DSPshow(5, "Please take your cola, your change is %d", change);
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
@@ -208,7 +208,7 @@ void eventHandler(event_e event)
          break;
 
       case S_WAIT_FOR_UPDATE_CHANGE:
-         DSPshow("Ask administrator to fill change storage ... done", 5);
+         DSPshow(5, "Ask administrator to fill change storage ... done");
          CHDsetAvailableChange(REFILL_CHANGE_ADMIN);
          nextState = S_WAIT_FOR_COINS;
          break;
@@ -248,10 +248,10 @@ event_e CVMcheckEnoughCents(int coinValue)
    switch (coinValue)
    {
       case 20:
-         DSPshow("     20C", 5);
+         DSPshow(5, "     20C");
          break;
       case 50:
-         DSPshow("     50C", 5);
+         DSPshow(5, "     50C");
          break;
    }
    insertedMoney += coinValue;
