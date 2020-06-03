@@ -24,6 +24,6 @@ void DSPshowDisplay(void);
 void DSPshow(int row,  const char fmt[], ...);
 
 /// Add new text to display in row, deletes all subsequent lines.
-void DSPshowDelete(const char text[], int row);
+void DSPshowDelete(int row, const char fmt[], ...);
 
 #endif

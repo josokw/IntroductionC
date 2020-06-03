@@ -23,7 +23,7 @@ event_e CNAinputCoins(void)
    char coin = '0';
    event_e event = E_NO;
 
-   DSPshowDelete("Enter your coins please", 3);
+   DSPshowDelete(3, "Enter your coins please");
    coin = DCSsimulationSystemInputChar("Enter a coin: <1> 20c  <2> 50c", "12");
    switch (coin)
    {

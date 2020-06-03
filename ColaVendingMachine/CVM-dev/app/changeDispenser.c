@@ -38,5 +38,5 @@ void CHDdispenseChange(int change)
 {
    DCSdebugSystemInfo("Change Dispenser: dispensed change = %d", change);
 
-   DSPshowDelete("Please, take your change", 5);
+   DSPshowDelete(5, "Please, take your change");
 }

@@ -92,14 +92,19 @@ void DSPshow(int row, const char fmt[], ...)
    DSPshowDisplay();
 }
 
-void DSPshowDelete(const char text[], int row)
+void DSPshowDelete(int row, const char fmt[], ...)
 {
+   va_list arg;
+
    DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    for (int r = row; r < DSP_HEIGHT - 1; r++)
    {
       DSPclearLine(r);
    }
-   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+   va_start(arg, fmt);
+   vsnprintf(&display[row][2], DSP_WIDTH - 3, fmt, arg);
+   va_end(arg);
+
    DSPshowDisplay();
 }
