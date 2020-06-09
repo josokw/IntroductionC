@@ -34,7 +34,7 @@ int DCSsimulationSystemInputYN(const char questionText[])
       KYBclear();
    } while (again);
 
-   return again;
+   return (input == 'Y');
 }
 
 char DCSsimulationSystemInputChar(const char text[], const char chrs[])
