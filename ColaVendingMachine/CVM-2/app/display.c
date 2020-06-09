@@ -1,5 +1,6 @@
 #include "display.h"
 #include "appInfo.h"
+#include "devConsole.h"
 #include "systemErrors.h"
 
 #include <stdarg.h>
@@ -30,7 +31,7 @@ void DSPinitialise(void)
    strncpy(&display[1][1], " " APP " v" VERSION, DSP_WIDTH - 5);
 
    DSPshowDisplay();
-   DSPdebugSystemInfo("Display: initialised");
+   DCSdebugSystemInfo("Display %dx%d: initialised", DSP_WIDTH, DSP_HEIGHT);
 }
 
 void DSPclear(void)
@@ -50,7 +51,7 @@ void DSPclear(void)
 
    if (error != 0)
    {
-      printf("\nERROR terminal command fails\n\n");
+      printf("\nERROR command for starting a terminal fails\n\n");
    }
 }
 
@@ -73,55 +74,37 @@ void DSPshowDisplay(void)
       printf("%s\n", display[row]);
    }
    DSPshowSystemErrorBits();
+   puts("\nDevelopment Console:");
 }
 
-void DSPshow(const char text[], int row)
+void DSPshow(int row, const char fmt[], ...)
 {
-   DSPdebugSystemInfo("** Press <Enter>, for update display **");
+   va_list arg;
+
+   DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    DSPclearLine(row);
-   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+
+   va_start(arg, fmt);
+   vsnprintf(&display[row][2], DSP_WIDTH - 3, fmt, arg); 
+   va_end(arg);
+
    DSPshowDisplay();
 }
 
-void DSPshowDelete(const char text[], int row)
+void DSPshowDelete(int row, const char fmt[], ...)
 {
-   DSPdebugSystemInfo("** Press <Enter>, for update display **");
+   va_list arg;
+
+   DCSdebugSystemInfo("** Press <Enter>, for update display **");
    getchar();
    for (int r = row; r < DSP_HEIGHT - 1; r++)
    {
       DSPclearLine(r);
    }
-   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+   va_start(arg, fmt);
+   vsnprintf(&display[row][2], DSP_WIDTH - 3, fmt, arg);
+   va_end(arg);
+
    DSPshowDisplay();
-}
-
-void DSPdebugSystemInfo(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- DEBUG  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
-}
-
-void DSPsimulationSystemInfo(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- SIMULATION  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
-}
-
-void DSPshowSystemError(const char fmt[], ...)
-{
-   va_list arg;
-
-   printf("\n-- SYSTEM ERROR  ");
-   va_start(arg, fmt);
-   vfprintf(stdout, fmt, arg);
-   va_end(arg);
 }

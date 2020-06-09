@@ -1,5 +1,5 @@
 #include "changeDispenser.h"
-#include "TUI.h"
+#include "devConsole.h"
 #include "display.h"
 #include "keyboard.h"
 #include "systemErrors.h"
@@ -12,9 +12,9 @@ static int availableChange = MAX_AVAILABLE_CHANGE;
 
 void CHDinitialise(void)
 {
-   DSPdebugSystemInfo("Change Dispenser: initialised");
+   DCSdebugSystemInfo("Change Dispenser: initialised");
 
-   if (TUIsimulationSystemInputYN("Selftest Change Dispenser: init error"))
+   if (DCSsimulationSystemInputYN("Selftest Change Dispenser: init error"))
    {
       setSystemErrorBit(ERR_INIT_CHD);
       DSPshowDisplay();
@@ -28,10 +28,7 @@ int CHDgetAvailableChange(void)
 
 void CHDdispenseChange(int change)
 {
-   char info[100];
+   DCSdebugSystemInfo("Change Dispenser: dispensed change = %d", change);
 
-   snprintf(info, 100, "%s%d", "Change Dispenser: dispensed change = ", change);
-   DSPdebugSystemInfo(info);
-
-   DSPshowDelete("Please, take your change", 5);
+   DSPshowDelete(5, "Please, take your change");
 }

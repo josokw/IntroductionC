@@ -1,10 +1,11 @@
 #include "fsm.h"
-#include "TUI.h"
 #include "changeDispenser.h"
 #include "coinAcceptor.h"
 #include "colaDispenser.h"
+#include "devConsole.h"
 #include "display.h"
 #include "events.h"
+#include "files.h"
 #include "states.h"
 #include "systemErrors.h"
 
@@ -28,6 +29,9 @@ event_e generateEvent(void)
       case S_INITIALISED_SUBSYSTEMS:
          event = E_CONTINUE;
          break;
+      case S_CONFIGURE:
+         event = CVMconfig();
+         break;
       case S_WAIT_FOR_COINS:
          event = CNAinputCoins();
          break;
@@ -38,12 +42,14 @@ event_e generateEvent(void)
          event = CVMcheckEnoughCents(50);
          break;
       default:
-         DSPshowSystemError("State panic: current state is not defined");
+         DCSshowSystemError("State panic: current state %s is not used",
+                            stateText(currentState));
          event = E_NO;
          break;
    }
 
-   DSPdebugSystemInfo("Generated event: %s", eventText(event));
+   DCSdebugSystemInfo("State %s generated event: %s", stateText(currentState),
+                      eventText(event));
 
    return event;
 }
@@ -62,8 +68,9 @@ void eventHandler(event_e event)
                nextState = S_INITIALISED_SUBSYSTEMS;
                break;
             default:
-               DSPshowSystemError(
-                  "State panic: state S_START received unknown event");
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
          }
          break;
@@ -84,11 +91,29 @@ void eventHandler(event_e event)
                }
                else
                {
-                  nextState = S_WAIT_FOR_COINS;
+                  nextState = S_CONFIGURE;
                }
                break;
             default:
                // Ignore all unknown events
+               nextState = S_CONFIGURE;
+               break;
+         }
+         break;
+
+      case S_CONFIGURE:
+         switch (event)
+         {
+            case E_CONFIG:
+               nextState = S_CONFIGURE;
+               break;
+            case E_CONFIG_READY:
+               nextState = S_WAIT_FOR_COINS;
+               break;
+            default:
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -104,9 +129,9 @@ void eventHandler(event_e event)
                nextState = S_DETECTED_50C;
                break;
             default:
-               DSPshowSystemError(
-                  "State panic: state S_WAIT_FOR_COINS"
-                  "received unknown event");
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -120,15 +145,16 @@ void eventHandler(event_e event)
                break;
             case E_ENOUGH:
                change = insertedMoney - priceCola;
-               DSPshowDelete("Please, take your cola", 3);
+               DSPshowDelete(3, "Please, take your cola");
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
-               DSPshowSystemError(
-                  "State S_DETECTED_20C received unknown event");
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -142,21 +168,23 @@ void eventHandler(event_e event)
                break;
             case E_ENOUGH:
                change = insertedMoney - priceCola;
-               DSPshowDelete("Please, take your cola", 3);
+               DSPshowDelete(3, "Please, take your cola");
                CLDdispenseCola();
                CHDdispenseChange(change);
                insertedMoney = 0;
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
-               DSPshowSystemError("State S_DETECTED_50C received unkown event");
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
          break;
 
       default:
-         DSPshowSystemError("State panic: CVM is in unknown current state");
+         DCSshowSystemError("State panic: CVM is in unknown current state");
          nextState = S_INITIALISED_SUBSYSTEMS;
          break;
    }
@@ -165,7 +193,7 @@ void eventHandler(event_e event)
 
 void CVMinitialiseSubSystems(void)
 {
-   TUIinitialise();
+   DCSinitialise();
    CNAinitialise();
    CLDinitialise();
    CHDinitialise();
@@ -173,22 +201,21 @@ void CVMinitialiseSubSystems(void)
 
 void CVMshutdownSubSystems(void)
 {
-   DSPdebugSystemInfo("CVM shuts down!!\n\n");
+   DCSdebugSystemInfo("CVM shuts down!!\n\n");
+}
+
+event_e CVMconfig(void)
+{
+   DCSdebugSystemInfo("CVM configure");
+
+   return E_CONFIG_READY;
 }
 
 event_e CVMcheckEnoughCents(int coinValue)
 {
-   switch (coinValue)
-   {
-      case 20:
-         DSPshow("     20C", 5);
-         break;
-      case 50:
-         DSPshow("     50C", 5);
-         break;
-   }
+   DSPshow(5, "       %dC", coinValue);
    insertedMoney += coinValue;
-   DSPdebugSystemInfo("CVM inserted money: %d", insertedMoney);
+   DCSdebugSystemInfo("CVM inserted money: %d", insertedMoney);
    if (insertedMoney >= priceCola)
    {
       return E_ENOUGH;

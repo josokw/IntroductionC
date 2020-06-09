@@ -1,5 +1,7 @@
 #include "systemErrors.h"
 
+#include <stddef.h>
+
 static systemErrors_t systemErrorBits = 0b00000000; // 0b prefix is not standard
 static char systemErrorBitsString[sizeof(systemErrorBits) * 8 + 1] = "00000000";
 
@@ -24,7 +26,7 @@ systemErrors_t getSystemErrorBits(void)
 
 const char *getSystemErrorBitsString(void)
 {
-   for (int i = 0; i < sizeof(systemErrorBits) * 8; i++)
+   for (size_t i = 0; i < sizeof(systemErrorBits) * 8; i++)
    {
       systemErrorBitsString[i] = '0';
       if (getSystemErrorBit(i))

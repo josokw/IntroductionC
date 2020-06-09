@@ -102,6 +102,15 @@ void DSPshowDelete(int row, const char fmt[], ...)
    {
       DSPclearLine(r);
    }
+   strncpy(&display[row][2], text, DSP_WIDTH - 2);
+   DSPshowDisplay();
+}
+
+void DSPdebugSystemInfo(const char fmt[], ...)
+{
+   va_list arg;
+
+   printf("\n-- DEBUG  ");
    va_start(arg, fmt);
    vsnprintf(&display[row][2], DSP_WIDTH - 3, fmt, arg);
    va_end(arg);
