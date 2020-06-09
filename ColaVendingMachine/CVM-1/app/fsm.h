@@ -29,6 +29,9 @@ void CVMinitialiseSubSystems(void);
 /// \todo implement a shutdown function for every subsystem. 
 void CVMshutdownSubSystems(void);
 
+/// Asks for config data.
+event_e CVMconfig(void);
+
 /// Checks if the full price of the Cola is paid.
 event_e CVMcheckEnoughCents(int coinValue);
 

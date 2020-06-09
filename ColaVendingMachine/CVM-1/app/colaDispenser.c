@@ -1,14 +1,14 @@
 #include "colaDispenser.h"
-#include "display.h"
+#include "devConsole.h"
 
 //--------------------------------------------------------------- CoLa Dispenser
 
 void CLDinitialise(void)
 {
-   DSPdebugSystemInfo("Cola Dispenser: initialised");
+   DCSdebugSystemInfo("Cola Dispenser: initialised");
 }
 
 void CLDdispenseCola(void)
 {
-   DSPdebugSystemInfo("Cola Dispenser: dispensed cola");
+   DCSdebugSystemInfo("Cola Dispenser: dispensed cola");
 }
