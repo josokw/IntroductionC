@@ -1,7 +1,8 @@
 #ifndef DEVCONSOLE_H
 #define DEVCONSOLE_H
 
-/// Initialises the Development Console subsystem.
+/// Initialises the Development ConSole subsystem.
+/// \todo Is DCS a subsystem? It is part of a development system.
 void DCSinitialise(void);
 
 /// Shows questionText extended with '[y/n]'.
