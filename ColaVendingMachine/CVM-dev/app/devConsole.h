@@ -20,6 +20,10 @@ char DCSsimulationSystemInputChar(const char text[], const char chrs[]);
 /// \return entered int value.
 int DCSsimulationSystemInputInteger(const char text[], int min, int max);
 
+/// Prints text and waits for input, Has scanf() interface.
+/// \return the number of items in the successfully filled.
+int DCSsimulationSystemInput(const char text[], const char fmt[], ...);
+
 /// Shows debug related message, below the display.
 /// Has printf() interface.
 void DCSdebugSystemInfo(const char fmt[], ...);

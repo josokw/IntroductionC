@@ -49,7 +49,8 @@ event_e generateEvent(void)
       case S_WAIT_FOR_UPDATE_CHANGE:
          break;
       default:
-         DCSshowSystemError("State panic: current state is not defined");
+         DCSshowSystemError("State panic: current state %s is not used",
+                            stateText(currentState));
          event = E_NO;
          break;
    }
@@ -75,8 +76,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_START received unknown event %s",
-                  eventText(event));
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                exit(EXIT_FAILURE); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
          }
          break;
@@ -120,8 +121,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_CONFIGURE received unhandeld event %s",
-                  eventText(event));
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -138,9 +139,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_WAIT_FOR_COINS "
-                  "received unhandeld event %s",
-                  eventText(event));
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -159,7 +159,8 @@ void eventHandler(event_e event)
                break;
             default:
                DCSshowSystemError(
-                  "State panic: state S_DETECTED_20C received unknown event");
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -176,8 +177,9 @@ void eventHandler(event_e event)
                nextState = S_DISPENSE;
                break;
             default:
-               DCSshowSystemError("State panic: state %s received unkown event",
-                                  stateText(currentState));
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }
@@ -200,8 +202,9 @@ void eventHandler(event_e event)
                nextState = S_WAIT_FOR_COINS;
                break;
             default:
-               DCSshowSystemError("S_DISPENSE received event %s not handled",
-                                  eventText(event));
+               DCSshowSystemError(
+                  "State panic: state %s received unknown event %s",
+                  stateText(currentState), eventText(event));
                nextState = S_WAIT_FOR_COINS;
                break;
          }

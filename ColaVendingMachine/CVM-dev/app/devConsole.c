@@ -18,14 +18,23 @@ void DCSinitialise(void)
 int DCSsimulationSystemInputYN(const char questionText[])
 {
    char input = '\0';
+   int again = 0;
 
-   printf("\n-- SIMULATION  %s [y/n]? ", questionText);
+   do
+   {
+      printf("\n-- SIMULATION  %s [y/n]? ", questionText);
+      int nOK = scanf(" %c", &input);
+      input = toupper(input);
 
-   scanf("%c", &input);
-   input = toupper(input);
-   KYBclear();
+      again = (nOK != 1 || (strchr("YN", input) == NULL));
+      if (again)
+      {
+         printf("** AGAIN");
+      }
+      KYBclear();
+   } while (again);
 
-   return (input == '\n' || input == 'Y');
+   return again;
 }
 
 char DCSsimulationSystemInputChar(const char text[], const char chrs[])
@@ -35,14 +44,14 @@ char DCSsimulationSystemInputChar(const char text[], const char chrs[])
 
    do
    {
-      printf("\n-- SIMULATION  %s   ", text);
+      int nOK = DCSsimulationSystemInput(text, " %c", &input);
+      again = (nOK != 1 || (strchr(chrs, input) == NULL));
       if (again)
       {
-         printf("AGAIN   ");
+         printf("** AGAIN");
       }
-      input = KYBgetchar();
-      again = 1;
-   } while (strchr(chrs, input) == NULL);
+      KYBclear();
+   } while (again);
 
    return input;
 }
@@ -54,16 +63,29 @@ int DCSsimulationSystemInputInteger(const char text[], int min, int max)
 
    do
    {
-      printf("\n-- SIMULATION  %s   ", text);
+      int nOK = DCSsimulationSystemInput(text, "%d", &input);
+      again = (nOK != 1 || (input < min || input > max));
       if (again)
       {
-         printf("AGAIN   ");
+         printf("** AGAIN  %d <= input <= %d ", min, max);
       }
-      input = KYBgetint(min - 1);
-      again = 1;
-   } while (input < min || input > max);
+      KYBclear();
+   } while (again);
 
    return input;
+}
+
+int DCSsimulationSystemInput(const char text[], const char fmt[], ...)
+{
+   int nArgsOK = 0;
+   va_list arg;
+
+   printf("\n-- SIMULATION  %s ", text);
+   va_start(arg, fmt);
+   nArgsOK = vfscanf(stdin, fmt, arg);
+   va_end(arg);
+
+   return nArgsOK;
 }
 
 void DCSdebugSystemInfo(const char fmt[], ...)
